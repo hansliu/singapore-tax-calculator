@@ -339,8 +339,10 @@
 						</div>
 
 						<p style="margin-top: 20px; margin-bottom: 0px;">
-							<input id="employee" class="checkbox-style" v-model="is_employee" type="checkbox">
-							<label for="employee" class="checkbox-label" style="margin-right: 20px;">Permanent Resident</label>
+							<input id="permanent_resident" class="checkbox-style" v-model="is_permanent_resident" type="checkbox">
+							<label for="permanent_resident" class="checkbox-label" style="margin-right: 20px;">Permanent Resident</label>
+							<input id="non_residents" class="checkbox-style" v-model="is_non_residents" type="checkbox">
+							<label for="non_residents" class="checkbox-label" style="margin-right: 20px;">Non-Residents(Less than 183 Days)</label>
 						</p>
 
 					</form>
@@ -418,22 +420,17 @@
 
 										<div class="col-md-6">
 											<p>
-												Income tax rates depend on an individual's tax residency status. You will be treated as a tax
-												resident for a particular Year of Assessment (YA) if you are a:
+												Income tax rates depend on an individual's tax residency status. You will be treated as a tax resident for a particular Year of Assessment (YA) if you are a:
 											</p>
 											<ol style="list-style-type:lower-alpha">
-												<li>Singapore Citizen (SC) or Singapore Permanent Resident (SPR) who resides in Singapore except
-													for temporary absences; or</li>
-												<li>Foreigner who has stayed / worked in Singapore (excludes director of a company) for 183 days
-													or more in the year preceding the YA.</li>
+												<li>Singapore Citizen (SC) or Singapore Permanent Resident (SPR) who resides in Singapore except for temporary absences; or</li>
+												<li>Foreigner who has stayed / worked in Singapore (excludes director of a company) for 183 days or more in the year preceding the YA.</li>
 											</ol>
 											<p>
 												Otherwise, you will be treated as a non-resident of Singapore for tax purposes.
 											</p>
 											<p>
-												Singapore's personal income tax rates for resident taxpayers are progressive. This means higher
-												income earners pay a proportionately higher tax, with the current highest personal income tax
-												rate at 22%.
+												Singapore's personal income tax rates for resident taxpayers are progressive. This means higher income earners pay a proportionately higher tax, with the current highest personal income tax rate at 22%.
 											</p>
 											<i class="i-circled i-small icon-yen"></i>
 											<p style="font-size: 18px; font-weight: bold;">Your final Income Tax is <b
