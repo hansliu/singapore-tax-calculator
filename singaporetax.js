@@ -52,15 +52,13 @@ var app = new Vue({
             var taxable_income = this.taxable_income;
             this.cpf_contribution_amount = 0;
 
-            if (!this.is_permanent_resident) {
-                return ;
-            }
-
-            if (taxable_income > 72000) {
-                this.cpf_contribution_amount = 72000 * 0.2;
-            }
-            else {
-                this.cpf_contribution_amount = taxable_income * 0.2;
+            if (this.is_permanent_resident) {
+                if (taxable_income > 72000) {
+                    this.cpf_contribution_amount = 72000 * 0.2;
+                }
+                else {
+                    this.cpf_contribution_amount = taxable_income * 0.2;
+                }
             }
 
             this.cpf_contribution_percent = Math.round(
