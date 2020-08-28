@@ -80,6 +80,7 @@ var app = new Vue({
                 this.income_tax_amount = (taxable_income - 20000) * 0.02;
             }
 
+            // 15% of gross income or 22% of net income
             if (this.is_non_residents) {
                 if (taxable_income * 0.15 > this.income_tax_amount) {
                     this.income_tax_amount = taxable_income * 0.15
