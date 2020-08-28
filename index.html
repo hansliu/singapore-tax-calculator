@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="Hans Liu" />
+	<meta name="keywords"
+		content="foreigner, tax, singapore, calculation, calculator, income" />
+	<meta name="description"
+		content="Using the Singapore Tax Calculator, you can get an idea of the amount of taxes you might have to pay.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+	<!-- Stylesheets
+		============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Roboto:300,400,500,700"
+		rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<!-- Document Title
+		============================================= -->
+	<title>Singapore Tax Calculator</title>
+
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+
+		body {
+			font-family: Roboto;
+		}
+
+		h1 {
+			padding: 30px 0px 30px 0px;
+			font-size: 28px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			text-align: center;
+			box-shadow: 0px 2px 16px #e8e8e8;
+		}
+
+		h1 span {
+			color: #1abc9c;
+		}
+
+		h2 {
+			font-family: 'Lato', sans-serif;
+			font-weight: 600;
+			font-size: 24px;
+		}
+
+		h2 span {
+			color: #1abc9c;
+		}
+
+		h3 {
+			font-family: 'Lato', sans-serif;
+			font-weight: 600;
+			font-size: 20px;
+		}
+
+		h3 span {
+			color: #1abc9c;
+		}
+
+		.intro {
+			font-family: 'Lato', sans-serif;
+			font-size: 15px;
+			margin: 40px;
+			color: #5a5a5a;
+		}
+
+		p {
+			font-family: 'Lato', sans-serif;
+			font-size: 15px;
+			color: #5a5a5a;
+		}
+
+		.section {
+			padding: 20px;
+			color: white;
+			text-align: center;
+		}
+
+		#section-salary {
+			background-color: #2581d0;
+		}
+
+		#section-net-income {
+			background: #1abc9c;
+		}
+
+		#section-details {
+			padding: 20px;
+		}
+
+		.irs {
+			margin-bottom: 25px;
+		}
+
+		.irs-min,
+		.irs-max,
+		.irs-single {
+			font-size: 14px !important;
+			font-family: Roboto !important;
+		}
+
+		.irs-min,
+		.irs-max {
+			background: #52a9f7 !important;
+			color: white !important;
+		}
+
+		.irs--flat .irs-bar,
+		.irs--round .irs-bar {
+			background: #1abc9c !important;
+		}
+
+		.irs-single {
+			background-color: #1abc9c !important;
+		}
+
+		.irs-handle {
+			border-color: #1abc9c !important;
+		}
+
+		.irs-grid-text {
+			color: #66a9e4 !important;
+		}
+
+		label {
+			font-size: 13px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		.progress {
+			margin-bottom: 5px;
+			height: 30px;
+			background-color: rgba(0, 0, 0, 0.15);
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+			border-radius: 0;
+		}
+
+		.progress span {
+			font-weight: 400;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			text-transform: uppercase;
+			font-size: 13px;
+			line-height: 30px;
+		}
+
+		input[type="checkbox"],
+		input[type="radio"] {
+			position: absolute;
+			opacity: 0;
+			z-index: -1;
+		}
+
+		input[type="checkbox"]+label::after {
+			content: "\2714";
+			color: #2c3e50;
+		}
+
+		input[type="checkbox"]:checked+label::before,
+		input[type="radio"]:checked+label::before {
+			content: " ";
+			background: #1abc9c;
+		}
+
+		input[type="checkbox"]+label::after,
+		input[type=radio]+label::after {
+			-webkit-transform: scale(0);
+			-ms-transform: scale(0);
+			-o-transform: scale(0);
+			transform: scale(0);
+		}
+
+		label {
+			position: relative;
+			display: inline-block;
+			padding: 0 0 0 2em;
+			cursor: pointer;
+		}
+
+		label::before,
+		label::after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: block;
+			width: 1.5em;
+			height: 1.5em;
+		}
+
+		label::before {
+			content: " ";
+			border: 2px solid #ffffff;
+			border-radius: 0px;
+		}
+
+		/* Checkbox */
+		input[type="checkbox"]+label::after {
+			content: " ";
+			color: #2c3e50;
+		}
+
+		/* Radio */
+		input[type="radio"]+label::before {
+			border-radius: 50%;
+		}
+
+		input[type=radio]+label::after {
+			content: " ";
+			top: .25em;
+			left: .25em;
+			width: 1em;
+			height: 1em;
+			background: #fff;
+			border: .2em solid #2c3e50;
+			border-radius: 50%;
+		}
+
+		input[type="checkbox"]:checked+label::after,
+		input[type=radio]:checked+label::after {
+			-webkit-transform: scale(1);
+			-ms-transform: scale(1);
+			-o-transform: scale(1);
+			transform: scale(1);
+		}
+
+		.checkbox-label {
+			color: white;
+		}
+
+		#calculation-details-tabs {
+			margin-top: 20px;
+			background: #dbecff;
+			margin: 20px 0px 0px 0px;
+			padding: 10px;
+			border-radius: 0px;
+		}
+
+		#calculation-details-tabs .col-2 {
+			padding: 0px 10px 0px 0px;
+		}
+
+		#calculation-details-tabs .col-10 {
+			background: white;
+			border-radius: 0px;
+			padding: 10px 15px;
+		}
+
+		#detail-tabs-results {
+			width: 100%;
+		}
+
+		#detail-tabs-results td:nth-child(2) {
+			text-align: right;
+		}
+
+		#detail-tabs-results tr {
+			border-bottom: 1px solid #e8e8e8;
+		}
+
+		#disqus_thread {
+			margin-top: 30px;
+			background: #e8e8e8;
+			border-top: 5px #1abc9c solid;
+			padding: 20px;
+			margin-left: -20px;
+			margin-right: -20px;
+		}
+
+		@media only screen and (max-width: 600px) {
+			.nav-pills .nav-link {
+				padding: 2px;
+				font-size: 12px;
+				text-transform: uppercase;
+				margin-bottom: 10px;
+			}
+
+			#calculation-details-tabs {
+				margin: 20px -20px 0px -20px;
+				padding: 5px;
+			}
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<!-- Document Wrapper
+		============================================= -->
+	<div class="clearfix">
+
+		<h1>Singapore <span>Tax</span> Calculator</h1>
+
+		<!-- Content
+			============================================= -->
+
+		<div id="wrapper">
+
+			<p class="intro">Welcome on the Singapore Tax Calculator. This website is not the reference, it has been made for you to quickly get an idea of the amount of taxes you might have to pay. Refer to Singapore IRAS to know exactly how taxation works for you. Feel free to participate in the comments at the bottom of this page. As of 2020, the average salary a year in Singapore is S$ 67,152.</p>
+
+			<section id="content">
+
+				<div id="section-salary" class="section">
+
+					<h2>How much do you make <b>a year?</b>
+						<span v-if="!is_employee" style="font-size: 14px; font-style: italic; color: white; font-weight: normal;">
+							(after expenses, if any)
+						</span>
+					</h2>
+
+					<form class="container clearfix divcenter center form">
+						<h3 class="divcenter font-body nobottommargin"></h3>
+
+						<div class="white-section">
+							<input v-model="ui_salary" class="salary-range"></input>
+						</div>
+
+						<p style="margin-top: 20px; margin-bottom: 0px;">
+							<input id="employee" class="checkbox-style" v-model="is_employee" type="checkbox">
+							<label for="employee" class="checkbox-label" style="margin-right: 20px;">Permanent Resident</label>
+						</p>
+
+					</form>
+				</div>
+
+				<div id="section-net-income" class="section">
+					<div class="container clearfix divcenter center">
+
+						<h2 style="margin-bottom: 20px;">Your net income is:<br />{{income_net | to_sgd}}</h2>
+
+						<div class="progress">
+							<div class="progress-bar progress-bar-animated" role="progressbar"
+								v-bind:style="{ width: social_percent  * 2 + '%', 'background-color': '#0042bb;' }">
+								<span>
+									Central Provident Fund: {{social_amount | to_sgd}} ({{social_percent}}%)
+								</span>
+							</div>
+						</div>
+
+						<div class="progress">
+							<div class="progress-bar progress-bar-animated" role="progressbar"
+								v-bind:style="{ width: income_tax_percent  * 2 + '%', 'background-color': '#7752e8' }">
+								<span>
+									Income Tax: {{income_tax_amount | to_sgd}} ({{income_tax_percent}}%)
+								</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div id="section-details">
+
+					<h2>Calculation <span>details</span></h2>
+
+					<div class="row" id="calculation-details-tabs">
+
+						<div class="col-3 col-md-2">
+
+							<ul class="nav flex-column nav-pills" id="pills-tab" role="tablist">
+								<li class="nav-item" role="tab" aria-controls="tab-income-tax" aria-selected="false">
+									<a href="#tab-income-tax" class="nav-link" data-toggle="tab">Income Tax</a></li>
+								<li class="nav-item" role="tab" tabindex="0" aria-controls="tab-intro" aria-selected="true">
+									<a href="#tab-intro" class="nav-link active" data-toggle="tab">Net Income</a></li>
+							</ul>
+
+						</div>
+
+						<div class="col-9 col-md-10">
+
+							<div class="tab-content" id="detail-tabs">
+
+								<div class="tab-pane fade show active" id="tab-intro" role="tabpanel">
+
+									<table id="detail-tabs-results">
+										<tr>
+											<td>Salary</td>
+											<td>{{salary | to_sgd}}</td>
+										</tr>
+										<tr>
+											<td>Income Tax</td>
+											<td>- {{income_tax_amount | to_sgd}}</td>
+										</tr>
+										<tr style="border-bottom: none; border-top: 2px solid gray;">
+											<td>Net Income</td>
+											<td>{{income_net | to_sgd}}</td>
+										</tr>
+									</table>
+
+								</div>
+
+								<div class="tab-pane fade" id="tab-income-tax" role="tabpanel">
+
+									<div class="row">
+
+										<div class="col-md-6">
+											<p>
+												Income tax rates depend on an individual's tax residency status. You will be treated as a tax
+												resident for a particular Year of Assessment (YA) if you are a:
+											</p>
+											<ol style="list-style-type:lower-alpha">
+												<li>Singapore Citizen (SC) or Singapore Permanent Resident (SPR) who resides in Singapore except
+													for temporary absences; or</li>
+												<li>Foreigner who has stayed / worked in Singapore (excludes director of a company) for 183 days
+													or more in the year preceding the YA.</li>
+											</ol>
+											<p>
+												Otherwise, you will be treated as a non-resident of Singapore for tax purposes.
+											</p>
+											<p>
+												Singapore's personal income tax rates for resident taxpayers are progressive. This means higher
+												income earners pay a proportionately higher tax, with the current highest personal income tax
+												rate at 22%.
+											</p>
+											<i class="i-circled i-small icon-yen"></i>
+											<p style="font-size: 18px; font-weight: bold;">Your final Income Tax is <b
+													style="color: red;">{{income_tax_amount | to_sgd}}</b>.</p>
+										</div>
+
+										<div class="col-md-6">
+											<table class="table">
+												<thead class="thead-dark">
+													<tr>
+														<th><strong>Annual Salary</strong></th>
+														<th><strong>Tax Rate</strong></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>0 - 20,000</td>
+														<td>0%</td>
+													</tr>
+													<tr>
+														<td>20,001 - 30,000</td>
+														<td>2%</td>
+													</tr>
+													<tr>
+														<td>30,001 - 40,000</td>
+														<td>3.5%</td>
+													</tr>
+													<tr>
+														<td>40,001 - 80,000</td>
+														<td>7%</td>
+													</tr>
+													<tr>
+														<td>80,001 - 120,000</td>
+														<td>11.5%</td>
+													</tr>
+													<tr>
+														<td>120,001 - 160,000</td>
+														<td>15%</td>
+													</tr>
+													<tr>
+														<td>160,001 - 200,000</td>
+														<td>18%</td>
+													</tr>
+													<tr>
+														<td>200,001 - 240,000</td>
+														<td>19%</td>
+													</tr>
+													<tr>
+														<td>240,001 - 280,000</td>
+														<td>19.5%</td>
+													</tr>
+													<tr>
+														<td>280,001 - 320,000</td>
+														<td>20%</td>
+													</tr>
+													<tr>
+														<td>320,001 +</td>
+														<td>22%</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</section>
+
+		</div>
+
+		<section id="footer" style="padding: 0px 20px 0px 20px;">
+
+			<h2>About the <span>Singapore Tax Calculator</span></h2>
+			<p>
+				The Singapore Tax Calculatior is maintained by <a href='https://www.linkedin.com/in/liuhans/' target='_blank'>Hans Liu</a>. It was refer the <a href='https://japantaxcalculator.com/' target='_blank'>Japan Tax Calculatior</a> UI design and code base (that was maintained by <a href='https://jordymeow.com' target='_blank'>Jordy Meow</a> and Emi), If you find errors in those calculations, feel free to look into the code. It is being kept as simple as possible. If more changes need to be made, please feel free to create issue or pull request via github.
+			</p>
+
+			<div id="disqus_thread"></div>
+			<script>
+				var disqus_config = function () {
+					this.page.url = "https://singaporetaxcalculator.com/";  // Replace PAGE_URL with your page's canonical URL variable
+					this.page.identifier = "singaporetax"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+				};
+				(function () { // DON'T EDIT BELOW THIS LINE
+					var d = document, s = d.createElement('script');
+					s.src = 'https://singaporetax.disqus.com/embed.js';
+					s.setAttribute('data-timestamp', +new Date());
+					(d.head || d.body).appendChild(s);
+				})();
+			</script>
+
+		</section>
+
+	</div><!-- #wrapper end -->
+
+	<!-- External JavaScripts
+		============================================= -->
+	<script id="dsq-count-scr" src="//singaporetax.disqus.com/count.js" async></script>
+	<script type="text/javascript" src="https://unpkg.com/vue@2.0.1/dist/vue.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="singaporetax.js"></script>
+
+	<!-- Range Slider Plugin -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/js/ion.rangeSlider.min.js"
+		integrity="sha256-eXdxIh/sjKTNi5WyC8cKHekwPywORiomyiMFyZsowWw=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/css/ion.rangeSlider.min.css"
+		integrity="sha256-nv5vSBJAzPy+07+FvRvhV2UPpH87H/UnWMrA6nbEg7U=" crossorigin="anonymous" />
+
+	<!-- Footer Scripts
+		============================================= -->
+	<script type="text/javascript">
+
+		function salaryUpdate(amount) {
+			app.ui_salary = amount.from;
+		}
+
+		jQuery(document).ready(function () {
+			var slider = jQuery(".salary-range").ionRangeSlider({
+				grid: true,
+				min: 1000,
+				max: 1000000,
+				from: 67000,
+				step: 100,
+				skin: "round",
+				hide_min_max: true,
+				hide_from_to: false,
+				//grid_snap: true,
+				prefix: '‎S$ ',
+				prettify_separator: ',',
+				prettify_enabled: true,
+				onChange: salaryUpdate
+			});
+		});
+
+	</script>
+
+</body>
+
+</html>
