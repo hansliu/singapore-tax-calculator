@@ -326,7 +326,7 @@
 				<div id="section-salary" class="section">
 
 					<h2>How much do you make <b>a year?</b>
-						<span v-if="!is_employee" style="font-size: 14px; font-style: italic; color: white; font-weight: normal;">
+						<span style="font-size: 14px; font-style: italic; color: white; font-weight: normal;">
 							(after expenses, if any)
 						</span>
 					</h2>
@@ -339,10 +339,10 @@
 						</div>
 
 						<p style="margin-top: 20px; margin-bottom: 0px;">
-							<input id="permanent_resident" class="checkbox-style" v-model="is_permanent_resident" type="checkbox">
-							<label for="permanent_resident" class="checkbox-label" style="margin-right: 20px;">Permanent Resident</label>
-							<input id="non_residents" class="checkbox-style" v-model="is_non_residents" type="checkbox">
-							<label for="non_residents" class="checkbox-label" style="margin-right: 20px;">Non-Residents (Less than 183 Days)</label>
+							<input v-if="!is_non_residents" id="permanent_resident" class="checkbox-style" v-model="is_permanent_resident" type="checkbox">
+							<label v-if="!is_non_residents" for="permanent_resident" class="checkbox-label" style="margin-right: 20px;">Permanent Resident</label>
+							<input v-if="!is_permanent_resident" id="non_residents" class="checkbox-style" v-model="is_non_residents" type="checkbox">
+							<label v-if="!is_permanent_resident" for="non_residents" class="checkbox-label" style="margin-right: 20px;">Non-Residents (Less than 183 Days)</label>
 						</p>
 
 					</form>
@@ -355,9 +355,9 @@
 
 						<div class="progress">
 							<div class="progress-bar progress-bar-animated" role="progressbar"
-								v-bind:style="{ width: social_percent  * 2 + '%', 'background-color': '#0042bb;' }">
+								v-bind:style="{ width: cpf_contribution_percent  * 2 + '%', 'background-color': '#0042bb;' }">
 								<span>
-									Central Provident Fund: {{social_amount | to_sgd}} ({{social_percent}}%)
+									CPF Contribution: {{cpf_contribution_amount | to_sgd}} ({{cpf_contribution_percent}}%)
 								</span>
 							</div>
 						</div>
@@ -383,6 +383,8 @@
 						<div class="col-3 col-md-2">
 
 							<ul class="nav flex-column nav-pills" id="pills-tab" role="tablist">
+								<li class="nav-item" role="tab" aria-controls="tab-cpf-contribution" aria-selected="false">
+									<a href="#tab-cpf-contribution" class="nav-link" data-toggle="tab">CPF Contribution</a></li>
 								<li class="nav-item" role="tab" aria-controls="tab-income-tax" aria-selected="false">
 									<a href="#tab-income-tax" class="nav-link" data-toggle="tab">Income Tax</a></li>
 								<li class="nav-item" role="tab" tabindex="0" aria-controls="tab-intro" aria-selected="true">
@@ -401,6 +403,10 @@
 										<tr>
 											<td>Salary</td>
 											<td>{{salary | to_sgd}}</td>
+										</tr>
+										<tr>
+											<td>CPF Contribution</td>
+											<td>- {{cpf_contribution_amount | to_sgd}}</td>
 										</tr>
 										<tr>
 											<td>Income Tax</td>
