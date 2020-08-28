@@ -9,16 +9,16 @@ var app = new Vue({
         // USER ENTRIES
         ui_salary: 67000,
         salary: 0,
-        previous_salary: 0,
+        is_permanent_resident: false,
+        is_non_residents: false,
 
         // CALCULATIONS
-        income_tax: 1,
         income_tax_amount: 0,
         income_net: 0,
 
         // PERCENT OF SALARY
-        income_net_percent: 0,
         income_tax_percent: 0,
+        income_net_percent: 0
     },
 
     mounted: function() {
@@ -26,6 +26,12 @@ var app = new Vue({
     },
 
     watch: {
+        // is_permanent_resident: function() {
+        //     this.calculate_all();
+        // },
+        is_non_residents: function() {
+            this.calculate_all();
+        },
         ui_salary: function(newSalary) {
             this.calculate_all();
         }
@@ -34,7 +40,6 @@ var app = new Vue({
 
         calculate_all: function() {
             this.salary = parseInt(this.ui_salary);
-            this.previous_salary = this.salary;
             this.taxable_income = this.salary;
             this.calculate_income_tax_amount();
             this.calculate_income_net();
@@ -73,6 +78,13 @@ var app = new Vue({
             }
             else if (taxable_income >= 20000) {
                 this.income_tax_amount = (taxable_income - 20000) * 0.02;
+            }
+
+            // 15% of gross income or 22% of net income
+            if (this.is_non_residents) {
+                if (taxable_income * 0.15 > this.income_tax_amount) {
+                    this.income_tax_amount = taxable_income * 0.15
+                }
             }
 
             this.income_tax_percent = Math.round(this.income_tax_amount / this.salary * 100);
