@@ -423,6 +423,58 @@
 
 								</div>
 
+								<div class="tab-pane fade" id="tab-cpf-contribution" role="tabpanel">
+
+									<p>If you are a salaried employee and are a Singaporean or Singapore permanent resident (SPR), every month, when paying out your salary, your employer is required to withhold the portion of your pay that needs to go into your CPF accounts. That portion will be paid into your CPF accounts as your employee’s contribution.</p>
+
+									<div class="row">
+
+										<div class="col-md-6">
+											<div>
+												<h3 class="nobottommargin">What is <span>CPF</span></h3>
+											</div>
+											<p>
+												The Central Provident Fund (CPF) is se up to play one of the most important fuctions in Singapore's comprehensive social security system.
+											</p>
+											<p>
+												This is around 5% to 20% depending on Age and SPR status, it's cap on your monthly salary and is currently capped at $6,000. This means that the first $6,000 of your monthly salary is subject to CPF contributions. Any amount above that won’t have a portion deducted for CPF.
+											</p>
+											<p style="font-size: 18px; font-weight: bold;">Your CPF contribution is <b style="color: red;">{{cpf_contribution_amount | to_sgd}}</b>.</p>
+										</div>
+
+										<div class="col-md-6">
+											<table class="table">
+												<thead class="thead-dark">
+													<tr>
+														<th><strong>Age of employee</strong></th>
+														<th><strong>CPF contribution by employee</strong></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Up to 55 years old</td>
+														<td>20%</td>
+													</tr>
+													<tr>
+														<td>55 to 60 years old</td>
+														<td>13%</td>
+													</tr>
+													<tr>
+														<td>60 to 65 years old</td>
+														<td>7.5%</td>
+													</tr>
+													<tr>
+														<td>Above 65 years old</td>
+														<td>5%</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+
+									</div>
+
+								</div>
+
 								<div class="tab-pane fade" id="tab-income-tax" role="tabpanel">
 
 									<div class="row">
@@ -442,8 +494,7 @@
 												Singapore's personal income tax rates for resident taxpayers are progressive. This means higher income earners pay a proportionately higher tax, with the current highest personal income tax rate at 22%.
 											</p>
 											<i class="i-circled i-small icon-yen"></i>
-											<p style="font-size: 18px; font-weight: bold;">Your final Income Tax is <b
-													style="color: red;">{{income_tax_amount | to_sgd}}</b>.</p>
+											<p style="font-size: 18px; font-weight: bold;">Your final Income Tax is <b style="color: red;">{{income_tax_amount | to_sgd}}</b>.</p>
 										</div>
 
 										<div class="col-md-6">
