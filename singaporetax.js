@@ -13,12 +13,12 @@ var app = new Vue({
         is_non_residents: false,
 
         // CALCULATIONS
-        cpf_contribution_amount: 0,
+        cpf_withhold_amount: 0,
         income_tax_amount: 0,
         income_net: 0,
 
         // PERCENT OF SALARY
-        cpf_contribution_percent: 0,
+        cpf_withhold_percent: 0,
         income_tax_percent: 0,
         income_net_percent: 0
     },
@@ -43,30 +43,30 @@ var app = new Vue({
         calculate_all: function() {
             this.salary = parseInt(this.ui_salary);
             this.taxable_income = this.salary;
-            this.calculate_cpf_contribution_amount();
+            this.calculate_cpf_withhold_amount();
             this.calculate_income_tax_amount();
             this.calculate_income_net();
         },
 
-        calculate_cpf_contribution_amount: function() {
+        calculate_cpf_withhold_amount: function() {
             var taxable_income = this.taxable_income;
-            this.cpf_contribution_amount = 0;
+            this.cpf_withhold_amount = 0;
 
             if (this.is_permanent_resident) {
                 if (taxable_income > 72000) {
-                    this.cpf_contribution_amount = 72000 * 0.2;
+                    this.cpf_withhold_amount = 72000 * 0.2;
                 }
                 else {
-                    this.cpf_contribution_amount = taxable_income * 0.2;
+                    this.cpf_withhold_amount = taxable_income * 0.2;
                 }
             }
 
-            this.cpf_contribution_percent = Math.round(
-                this.cpf_contribution_amount / this.salary * 100);
+            this.cpf_withhold_percent = Math.round(
+                this.cpf_withhold_amount / this.salary * 100);
         },
 
         calculate_income_tax_amount: function() {
-            var taxable_income = this.taxable_income - this.cpf_contribution_amount;
+            var taxable_income = this.taxable_income - this.cpf_withhold_amount;
             this.income_tax_amount = 0;
 
             if (taxable_income >= 320000) {
@@ -111,7 +111,7 @@ var app = new Vue({
         },
 
         calculate_income_net: function() {
-            this.income_net = this.salary - this.cpf_contribution_amount - this.income_tax_amount;
+            this.income_net = this.salary - this.cpf_withhold_amount - this.income_tax_amount;
             this.income_net_percent = Math.round(this.income_net / this.salary * 100);
             //console.debug("Income Net: ", this.income_net);
         },
