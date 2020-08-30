@@ -369,9 +369,9 @@
 
 						<div class="progress">
 							<div class="progress-bar progress-bar-animated" role="progressbar"
-								v-bind:style="{ width: cpf_contribution_percent  * 2 + '%', 'background-color': '#0042bb;' }">
+								v-bind:style="{ width: cpf_withhold_percent  * 2 + '%', 'background-color': '#0042bb;' }">
 								<span>
-									CPF Contribution: {{cpf_contribution_amount | to_sgd}} ({{cpf_contribution_percent}}%)
+									CPF Withhold: {{cpf_withhold_amount | to_sgd}} ({{cpf_withhold_percent}}%)
 								</span>
 							</div>
 						</div>
@@ -397,8 +397,8 @@
 						<div class="col-3 col-md-2">
 
 							<ul class="nav flex-column nav-pills" id="pills-tab" role="tablist">
-								<li class="nav-item" role="tab" aria-controls="tab-cpf-contribution" aria-selected="false">
-									<a href="#tab-cpf-contribution" class="nav-link" data-toggle="tab">CPF Contribution</a></li>
+								<li class="nav-item" role="tab" aria-controls="tab-cpf-withhold" aria-selected="false">
+									<a href="#tab-cpf-withhold" class="nav-link" data-toggle="tab">CPF Withhold</a></li>
 								<li class="nav-item" role="tab" aria-controls="tab-income-tax" aria-selected="false">
 									<a href="#tab-income-tax" class="nav-link" data-toggle="tab">Income Tax</a></li>
 								<li class="nav-item" role="tab" tabindex="0" aria-controls="tab-intro" aria-selected="true">
@@ -419,8 +419,8 @@
 											<td>{{salary | to_sgd}}</td>
 										</tr>
 										<tr>
-											<td>CPF Contribution</td>
-											<td>- {{cpf_contribution_amount | to_sgd}}</td>
+											<td>CPF Withhold</td>
+											<td>- {{cpf_withhold_amount | to_sgd}}</td>
 										</tr>
 										<tr>
 											<td>Income Tax</td>
@@ -434,7 +434,7 @@
 
 								</div>
 
-								<div class="tab-pane fade" id="tab-cpf-contribution" role="tabpanel">
+								<div class="tab-pane fade" id="tab-cpf-withhold" role="tabpanel">
 
 									<div class="row">
 
@@ -464,9 +464,9 @@
 												This is around 5% to 20% depending on Age and SPR status, and is capped on your monthly salary, currently capped at S$6,000. This means that the first S$6,000 of your monthly salary is subject to CPF contributions. Any amount above that won’t have a portion deducted for CPF.
 											</p>
 											<p>
-												Because the Age is personal privacy, so we always use 20% as the CPF contribution rate.
+												Because the Age is personal privacy, so we always use 20% as the CPF withhold rate.
 											</p>
-											<p style="font-size: 18px; font-weight: bold;">Your CPF contribution is <b style="color: red;">{{cpf_contribution_amount | to_sgd}}</b>.</p>
+											<p style="font-size: 18px; font-weight: bold;">Your CPF withhold is <b style="color: red;">{{cpf_withhold_amount | to_sgd}}</b>.</p>
 										</div>
 
 										<div class="col-md-6">
@@ -474,7 +474,7 @@
 												<thead class="thead-dark">
 													<tr>
 														<th><strong>Age of employee</strong></th>
-														<th><strong>CPF contribution by employee</strong></th>
+														<th><strong>CPF withhold by employee</strong></th>
 													</tr>
 												</thead>
 												<tbody>
