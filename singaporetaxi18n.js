@@ -1,4 +1,4 @@
-import messages from "./i18n";
+import messages from "./i18n.vue";
 
 const locale = (navigator.language || navigator.browserLanguage).toLowerCase();
 
@@ -15,126 +15,126 @@ var app = new Vue({
     data: {
 
         // USER ENTRIES
-        ui_salary: 54700,
+        uiSalary: 54700,
         salary: 0,
-        is_permanent_resident: false,
-        is_non_residents: false,
+        isPermanentResident: false,
+        isNonResidents: false,
 
         // CALCULATIONS
-        cpf_withhold_amount: 0,
-        income_tax_amount: 0,
-        income_net: 0,
+        cpfWithholdAmount: 0,
+        incomeTaxAmount: 0,
+        incomeNet: 0,
 
         // PERCENT OF SALARY
-        cpf_withhold_percent: 0,
-        income_tax_percent: 0,
-        income_net_percent: 0
+        cpfWithholdPercent: 0,
+        incomeTaxPercent: 0,
+        incomeNetPercent: 0
 
     },
 
     mounted: function() {
-        this.calculate_all();
+        this.calculateAll();
     },
 
     watch: {
 
-        is_permanent_resident: function() {
-            this.calculate_all();
+        isPermanentResident: function() {
+            this.calculateAll();
         },
-        is_non_residents: function() {
-            this.calculate_all();
+        isNonResidents: function() {
+            this.calculateAll();
         },
-        ui_salary: function(newSalary) {
-            this.calculate_all();
+        uiSalary: function(newSalary) {
+            this.calculateAll();
         }
 
     },
 
     methods: {
 
-        calculate_all: function() {
-            this.salary = parseInt(this.ui_salary);
-            this.taxable_income = this.salary;
-            this.calculate_cpf_withhold_amount();
-            this.calculate_income_tax_amount();
-            this.calculate_income_net();
+        calculateAll: function() {
+            this.salary = parseInt(this.uiSalary);
+            this.taxableIncome = this.salary;
+            this.calculateCpfWithholdAmount();
+            this.calculateIncomeTaxAmount();
+            this.calculateIncomeNet();
         },
 
-        calculate_cpf_withhold_amount: function() {
-            var taxable_income = this.taxable_income;
-            this.cpf_withhold_amount = 0;
+        calculateCpfWithholdAmount: function() {
+            var taxableIncome = this.taxableIncome;
+            this.cpfWithholdAmount = 0;
 
-            if (this.is_permanent_resident) {
-                if (taxable_income > 72000) {
-                    this.cpf_withhold_amount = 72000 * 0.2;
+            if (this.isPermanentResident) {
+                if (taxableIncome > 72000) {
+                    this.cpfWithholdAmount = 72000 * 0.2;
                 }
                 else {
-                    this.cpf_withhold_amount = taxable_income * 0.2;
+                    this.cpfWithholdAmount = taxableIncome * 0.2;
                 }
             }
 
-            this.cpf_withhold_percent = Math.round(
-                this.cpf_withhold_amount / this.salary * 100);
+            this.cpfWithholdPercent = Math.round(
+                this.cpfWithholdAmount / this.salary * 100);
         },
 
-        calculate_income_tax_amount: function() {
-            var taxable_income = this.taxable_income - this.cpf_withhold_amount;
-            this.income_tax_amount = 0;
+        calculateIncomeTaxAmount: function() {
+            var taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
+            this.incomeTaxAmount = 0;
 
-            if (taxable_income >= 320000) {
-                this.income_tax_amount = (taxable_income - 320000) * 0.22 + 44550;
+            if (taxableIncome >= 320000) {
+                this.incomeTaxAmount = (taxableIncome - 320000) * 0.22 + 44550;
             }
-            else if (taxable_income >= 280000) {
-                this.income_tax_amount = (taxable_income - 280000) * 0.20 + 36550;
+            else if (taxableIncome >= 280000) {
+                this.incomeTaxAmount = (taxableIncome - 280000) * 0.20 + 36550;
             }
-            else if (taxable_income >= 240000) {
-                this.income_tax_amount = (taxable_income - 240000) * 0.195 + 28750;
+            else if (taxableIncome >= 240000) {
+                this.incomeTaxAmount = (taxableIncome - 240000) * 0.195 + 28750;
             }
-            else if (taxable_income >= 200000) {
-                this.income_tax_amount = (taxable_income - 200000) * 0.19 + 21150;
+            else if (taxableIncome >= 200000) {
+                this.incomeTaxAmount = (taxableIncome - 200000) * 0.19 + 21150;
             }
-            else if (taxable_income >= 160000) {
-                this.income_tax_amount = (taxable_income - 160000) * 0.18 + 13950;
+            else if (taxableIncome >= 160000) {
+                this.incomeTaxAmount = (taxableIncome - 160000) * 0.18 + 13950;
             }
-            else if (taxable_income >= 120000) {
-                this.income_tax_amount = (taxable_income - 120000) * 0.15 + 7950;
+            else if (taxableIncome >= 120000) {
+                this.incomeTaxAmount = (taxableIncome - 120000) * 0.15 + 7950;
             }
-            else if (taxable_income >= 80000) {
-                this.income_tax_amount = (taxable_income - 80000) * 0.115 + 3350;
+            else if (taxableIncome >= 80000) {
+                this.incomeTaxAmount = (taxableIncome - 80000) * 0.115 + 3350;
             }
-            else if (taxable_income >= 40000) {
-                this.income_tax_amount = (taxable_income - 40000) * 0.07 + 550;
+            else if (taxableIncome >= 40000) {
+                this.incomeTaxAmount = (taxableIncome - 40000) * 0.07 + 550;
             }
-            else if (taxable_income >= 30000) {
-                this.income_tax_amount = (taxable_income - 30000) * 0.035 + 200;
+            else if (taxableIncome >= 30000) {
+                this.incomeTaxAmount = (taxableIncome - 30000) * 0.035 + 200;
             }
-            else if (taxable_income >= 20000) {
-                this.income_tax_amount = (taxable_income - 20000) * 0.02;
+            else if (taxableIncome >= 20000) {
+                this.incomeTaxAmount = (taxableIncome - 20000) * 0.02;
             }
 
             // 15% of gross income or 22% of net income
-            if (this.is_non_residents) {
-                if (taxable_income * 0.15 > this.income_tax_amount) {
-                    this.income_tax_amount = taxable_income * 0.15
+            if (this.isNonResidents) {
+                if (taxableIncome * 0.15 > this.incomeTaxAmount) {
+                    this.incomeTaxAmount = taxableIncome * 0.15
                 }
             }
 
-            this.income_tax_percent = Math.round(this.income_tax_amount / this.salary * 100);
+            this.incomeTaxPercent = Math.round(this.incomeTaxAmount / this.salary * 100);
         },
 
-        calculate_income_net: function() {
-            this.income_net = this.salary - this.cpf_withhold_amount - this.income_tax_amount;
-            this.income_net_percent = Math.round(this.income_net / this.salary * 100);
-            //console.debug("Income Net: ", this.income_net);
+        calculateIncomeNet: function() {
+            this.incomeNet = this.salary - this.cpfWithholdAmount - this.incomeTaxAmount;
+            this.incomeNetPercent = Math.round(this.incomeNet / this.salary * 100);
+            //console.debug("Income Net: ", this.incomeNet);
         },
 
     },
 
     filters: {
 
-        to_sgd: function(value) {
+        toSGD: function(value) {
             if (!value)
-            return 'S$0';
+                return 'S$0';
             var val = Math.round(value);
             return "S$" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
