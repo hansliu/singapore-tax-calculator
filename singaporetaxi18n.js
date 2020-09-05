@@ -42,7 +42,7 @@ const messages = {
 const locale = (navigator.language || navigator.browserLanguage).toLowerCase();
 
 const i18n = new VueI18n({
-    locale: (locale == 'zh-tw' || locale == 'zh-cn') ? locale : locale.split('-')[0],
+    locale: (locale == 'zh-tw') ? locale : 'en',
     messages: messages,
 })
 
