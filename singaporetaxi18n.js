@@ -8,7 +8,7 @@ const messages = {
       },
       "about": {
         "title": "About the {website}",
-        "content": "The Singapore Tax Calculatior is maintained by {author}. It was refer the {thanksWebsite} UI design and code base (that was maintained by {thanksAuthor} and Emi), If you find errors in those calculations, feel free to look into the code. It is being kept as simple as possible. If more changes need to be made, please feel free to create issue or pull request via {github}."
+        "content": "The Singapore Tax Calculatior is maintained by {author}. It was refer the {thanks_website} UI design and code base (that was maintained by {thanks_author} and Emi), If you find errors in those calculations, feel free to look into the code. It is being kept as simple as possible. If more changes need to be made, please feel free to create issue or pull request via {github}."
       },
       "disclaimer": {
         "title": "Disclaimer",
@@ -24,7 +24,7 @@ const messages = {
       },
       "about": {
         "title": "關於 {website}",
-        "content": "Singapore Tax Calculator 由 {author} 開發與維護。網站的頁面設計與程式碼參考自 {thanksWebsite} (由 {thanksAuthor} 和 Emi 開發與維護)，如果有任何計算上的錯誤，歡迎您直接檢查程式碼。如果有什麼新想法，在保持盡可能簡單的設計情況下，也歡迎到 {github} 提出建議或請求。"
+        "content": "Singapore Tax Calculator 網站由 {author} 開發與維護。網站的頁面設計與程式碼參考自 {thanks_website} (由 {thanks_author} 和 Emi 開發與維護)，如果有任何計算上的錯誤，歡迎您直接檢查程式碼。如果有什麼新想法，在保持盡可能簡單的設計情況下，也歡迎到 {github} 提出建議或請求。"
       },
       "disclaimer": {
         "title": "免責聲明",
