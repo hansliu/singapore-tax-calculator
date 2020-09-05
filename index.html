@@ -330,7 +330,6 @@
 
 		<!-- Content
 			============================================= -->
-
 		<div id="wrapper">
 
 			<p class="intro">{{ $t('intro.content') }}</p>
@@ -582,48 +581,48 @@
 
 			</section>
 
+			<section id="footer" style="padding: 0px 20px 0px 20px;">
+
+				<i18n path="about.title" tag="h2">
+					<template v-slot:website>
+						<span>Singapore Tax Calculator</span>
+					</template>
+				</i18n>
+				<i18n path="about.content" tag="p">
+					<template v-slot:author>
+						<a href='https://www.linkedin.com/in/liuhans/' target='_blank'>Hans Liu</a>
+					</template>
+					<template v-slot:thanksWebsite>
+						<a href='https://japantaxcalculator.com/' target='_blank'>Japan Tax Calculator</a>
+					</template>
+					<template v-slot:thanksAuthor>
+						<a href='https://jordymeow.com' target='_blank'>Jordy Meow</a>
+					</template>
+					<template v-slot:github>
+						<a href='https://github.com/hansliu/singapore-tax-calculator' target='_blank'>github</a>
+					</template>
+				</i18n>
+
+				<h3>{{ $t('disclaimer.title') }}</h3>
+				<p>{{ $t('disclaimer.content') }}</p>
+
+				<div id="disqus_thread"></div>
+				<script>
+					var disqus_config = function () {
+						this.page.url = "https://singaporetaxcalculator.com/";  // Replace PAGE_URL with your page's canonical URL variable
+						this.page.identifier = "singaporetax"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+					};
+					(function () { // DON'T EDIT BELOW THIS LINE
+						var d = document, s = d.createElement('script');
+						s.src = 'https://singaporetax.disqus.com/embed.js';
+						s.setAttribute('data-timestamp', +new Date());
+						(d.head || d.body).appendChild(s);
+					})();
+				</script>
+
+			</section>
+
 		</div>
-
-		<section id="footer" style="padding: 0px 20px 0px 20px;">
-
-			<i18n path="about.title" tag="h2">
-				<template v-slot:website>
-					<span>Singapore Tax Calculator</span>
-				</template>
-			</i18n>
-			<i18n path="about.content" tag="p">
-				<template v-slot:author>
-					<a href='https://www.linkedin.com/in/liuhans/' target='_blank'>Hans Liu</a>
-				</template>
-				<template v-slot:thanksWebsite>
-					<a href='https://japantaxcalculator.com/' target='_blank'>Japan Tax Calculator</a>
-				</template>
-				<template v-slot:thanksAuthor>
-					<a href='https://jordymeow.com' target='_blank'>Jordy Meow</a>
-				</template>
-				<template v-slot:github>
-					<a href='https://github.com/hansliu/singapore-tax-calculator' target='_blank'>github</a>
-				</template>
-			</i18n>
-
-			<h3>{{ $t('disclaimer.title') }}</h3>
-			<p>{{ $t('disclaimer.content') }}</p>
-
-			<div id="disqus_thread"></div>
-			<script>
-				var disqus_config = function () {
-					this.page.url = "https://singaporetaxcalculator.com/";  // Replace PAGE_URL with your page's canonical URL variable
-					this.page.identifier = "singaporetax"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-				};
-				(function () { // DON'T EDIT BELOW THIS LINE
-					var d = document, s = d.createElement('script');
-					s.src = 'https://singaporetax.disqus.com/embed.js';
-					s.setAttribute('data-timestamp', +new Date());
-					(d.head || d.body).appendChild(s);
-				})();
-			</script>
-
-		</section>
 
 	</div><!-- #wrapper end -->
 
