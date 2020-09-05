@@ -54,7 +54,7 @@ var app = new Vue({
     data: {
 
         // USER ENTRIES
-        uiSalary: 54700,
+        uiSalary: 67100,
         salary: 0,
         isPermanentResident: false,
         isNonResidents: false,
