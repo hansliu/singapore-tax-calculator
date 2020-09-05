@@ -1,4 +1,4 @@
-import messages from "./i18n.vue";
+import { messages } from './i18n.js';
 
 const locale = (navigator.language || navigator.browserLanguage).toLowerCase();
 
