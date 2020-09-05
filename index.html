@@ -338,11 +338,16 @@
 
 				<div id="section-salary" class="section">
 
-					<h2>How much do you make <b>a year</b>?
-						<span style="font-size: 14px; font-style: italic; color: white; font-weight: normal;">
-							(after expenses, if any)
-						</span>
-					</h2>
+					<i18n path="salary.title" tag="h2">
+						<template #ayear>
+							<b>{{ $t('salary.ayear') }}</b>
+						</template>
+						<template #expenses>
+							<span style="font-size: 14px; font-style: italic; color: white; font-weight: normal;">
+								{{ $t('salary.expenses') }}
+							</span>
+						</template>
+					</i18n>
 
 					<form class="container clearfix divcenter center form">
 						<h3 class="divcenter font-body nobottommargin"></h3>
@@ -364,7 +369,7 @@
 				<div id="section-net-income" class="section">
 					<div class="container clearfix divcenter center">
 
-						<h2 style="margin-bottom: 20px;">Your net income is:<br />{{incomeNet | toSGD}}</h2>
+						<h2 style="margin-bottom: 20px;">{{ $t('salary.net_income') }}:<br />{{incomeNet | toSGD}}</h2>
 
 						<div class="progress">
 							<div class="progress-bar progress-bar-animated" role="progressbar"
