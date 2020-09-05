@@ -23,7 +23,7 @@ const messages = {
         "content": "歡迎來到 Singapore Tax Calculator。本網站想用最簡單的方式，讓想來新加坡工作或是已經在新加坡工作的工作簽證持有者，能快速瞭解你需要繳交多少個人所得稅。如果想知道更詳細的稅務資訊，請參考新加坡 IRAS 網站。如果對網站有什麼想法，也歡迎到最下方留言區留下你的意見。此外，根據統計，2019年新加坡的平均年收入為 S$ 67,152 元"
       },
       "salary": {
-        "title": "你{ayear}賺多少錢? {expenses}",
+        "title": "你{ayear}的收入是多少? {expenses}",
         "ayear": "一年",
         "expenses": "(扣除公務減免)",
         "net_income": "你的淨收入是:"
