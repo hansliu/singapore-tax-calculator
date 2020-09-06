@@ -25,7 +25,7 @@ const messages = {
         "salary": {
             "title": "你{ayear}的收入是多少? {expenses}",
             "ayear": "一年",
-            "expenses": "(扣除公帳減免)",
+            "expenses": "(扣除公費減免)",
             "net_income": "你的稅後淨收入是:"
         },
         "about": {
