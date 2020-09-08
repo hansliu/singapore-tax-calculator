@@ -1,7 +1,7 @@
 const messages = {
     "en": {
         "intro": {
-            "content": "Welcome to the Singapore Tax Calculator. This website has been made for you to quickly get an idea of the amount of taxes you might have to pay especially for the work visa holders. Refer to Singapore IRAS to know exactly how taxation works for you. Feel free to participate in the comments at the bottom of this page. As of 2019, the average salary a year in Singapore is S$ 67,152."
+            "content": "Welcome to the Singapore Tax Calculator. This website has been made for you to quickly get an idea of the amount of taxes you might have to pay especially for the work visa holders. Refer to Singapore IRAS to know exactly how taxation works for you. Please feel free to leave the comments below at the bottom of this page. As of 2019, the average salary a year in Singapore is S$ 67,152."
         },
         "salary": {
             "title": "How much do you make {ayear}? {expenses}",
