@@ -1,7 +1,7 @@
 const messages = {
     "en": {
         "intro": {
-            "content": "Welcome to the Singapore Tax Calculator. This website has been made for you to quickly get an idea of the amount of taxes you might have to pay especially for the work visa holders. Refer to Singapore IRAS to know exactly how taxation works for you. Please feel free to leave the comments below at the bottom of this page. As of 2020, the average salary a year in Singapore is S$ 69,396."
+            "content": "Welcome to the Singapore Tax Calculator. This website has been made for you to quickly get an idea of the amount of taxes you might have to pay especially for the work visa holders. Refer to Singapore IRAS to know exactly how taxation works for you. Please feel free to leave the comments below at the bottom of this page. As of 2020, the average salary a year in Singapore is S$69,396."
         },
         "salary": {
             "title": "How much do you make {ayear}? {expenses}",
@@ -20,7 +20,7 @@ const messages = {
     },
     "zh-tw": {
         "intro": {
-            "content": "歡迎來到 Singapore Tax Calculator。本網站是為了讓想來新加坡工作或是已經在新加坡工作的工作簽證持有者，能快速瞭解你需要繳交多少個人所得稅。如果想知道更詳細的稅務資訊，請參考新加坡 IRAS 網站。如果對網站有什麼想法，也歡迎到最下方留言區留下你的意見。此外，根據統計，2020年新加坡的平均年收入為 S$ 69,396"
+            "content": "歡迎來到 Singapore Tax Calculator。本網站是為了讓想來新加坡工作或是已經在新加坡工作的工作簽證持有者，能快速瞭解你需要繳交多少個人所得稅。如果想知道更詳細的稅務資訊，請參考新加坡 IRAS 網站。如果對網站有什麼想法，也歡迎到最下方留言區留下你的意見。此外，根據統計，2020年新加坡的平均年收入為 S$69,396。"
         },
         "salary": {
             "title": "你{ayear}的收入是多少? {expenses}",
@@ -39,7 +39,7 @@ const messages = {
     },
     "zh-cn": {
         "intro": {
-            "content": "欢迎来到 Singapore Tax Calculator。本网站是为了让想来新加坡做工或是已经在新加坡做工的工签持有者，能快速了解你需要缴交多少个人所得税。如果想知道更详细的税务资讯，请参考新加坡 IRAS 网站。如果对网站有什么想法，也欢迎到最下方留言区留下你的意见。此外，根据统计，2020年新加坡的平均年收入为 S$ 69,396"
+            "content": "欢迎来到 Singapore Tax Calculator。本网站是为了让想来新加坡做工或是已经在新加坡做工的工签持有者，能快速了解你需要缴交多少个人所得税。如果想知道更详细的税务资讯，请参考新加坡 IRAS 网站。如果对网站有什么想法，也欢迎到最下方留言区留下你的意见。此外，根据统计，2020年新加坡的平均年收入为 S$69,396。"
         },
         "salary": {
             "title": "你{ayear}的收入是多少? {expenses}",
