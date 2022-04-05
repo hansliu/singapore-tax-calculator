@@ -206,7 +206,7 @@
 		}
 
 		input[type="checkbox"]+label::after,
-		input[type=radio]+label::after {
+		input[type="radio"]+label::after {
 			-webkit-transform: scale(0);
 			-ms-transform: scale(0);
 			-o-transform: scale(0);
@@ -378,7 +378,7 @@
 
 						<div class="white-section">
 							<label class="number-label" style="margin-right: 20px;"></label>
-							<input v-model="uiSalary" class="number-style" type="number" onchange="rangeSalaryUpdate()"></input>
+							<input class="number-style" v-model="uiSalary" type="number" inputmode="numeric" onchange="rangeSalaryUpdate()" required></input>
 							<input class="salary-range" type="range"></input>
 						</div>
 
@@ -683,8 +683,7 @@
 		function rangeSalaryUpdate() {
 			var slider = jQuery(".salary-range").data("ionRangeSlider");
 			slider.update({
-				from: app.uiSalary,
-				to: app.uiSalary
+				from: app.uiSalary
 			})
 		}
 
