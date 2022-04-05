@@ -213,27 +213,25 @@
 			transform: scale(0);
 		}
 
-		label {
-			position: relative;
-			display: inline-block;
-			padding: 0 0 0 2em;
-			cursor: pointer;
-		}
-
-		label::before,
-		label::after {
-			position: absolute;
-			top: 0;
-			left: 0;
-			display: block;
-			width: 1.5em;
-			height: 1.5em;
-		}
-
-		label::before {
-			content: " ";
+		/* Number */
+		input[type="number"] {
+			background-color: transparent;
+			color: white;
 			border: 2px solid #ffffff;
 			border-radius: 0px;
+			width: 100px;
+		}
+
+		.number-label {
+			position: relative;
+			display: inline-block;
+			color: white;
+		}
+
+		.number-label::before {
+			position: absolute;
+			top: -.5em;
+			content: "S$";
 		}
 
 		/* Checkbox */
@@ -267,7 +265,27 @@
 		}
 
 		.checkbox-label {
+			position: relative;
+			display: inline-block;
+			padding: 0 0 0 2em;
+			cursor: pointer;
 			color: white;
+		}
+
+		.checkbox-label::before,
+		.checkbox-label::after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: block;
+			width: 1.5em;
+			height: 1.5em;
+		}
+
+		.checkbox-label::before {
+			content: " ";
+			border: 2px solid #ffffff;
+			border-radius: 0px;
 		}
 
 		#calculation-details-tabs {
@@ -355,11 +373,13 @@
 						</template>
 					</i18n>
 
-					<form class="container clearfix divcenter center form">
+					<div class="container clearfix divcenter center">
 						<!-- <h3 class="divcenter font-body nobottommargin"></h3> -->
 
 						<div class="white-section">
-							<input v-model="uiSalary" class="salary-range"></input>
+							<label class="number-label" style="margin-right: 20px;"></label>
+							<input v-model="uiSalary" class="number-style" type="number" onchange="rangeSalaryUpdate()"></input>
+							<input class="salary-range" type="range"></input>
 						</div>
 
 						<p style="margin-top: 20px; margin-bottom: 0px;">
@@ -369,7 +389,7 @@
 							<label v-if="!isPermanentResident" for="nonResidents" class="checkbox-label" style="margin-right: 20px;">Non-Residents (Stay Less than 183 Days)</label>
 						</p>
 
-					</form>
+					</div>
 				</div>
 
 				<div id="section-net-income" class="section">
@@ -656,15 +676,23 @@
 		============================================= -->
 	<script type="application/javascript">
 
-		function salaryUpdate(amount) {
-			app.uiSalary = amount.from;
+		function uiSalaryUpdate(data) {
+			app.uiSalary = data.from;
+		}
+
+		function rangeSalaryUpdate() {
+			var slider = jQuery(".salary-range").data("ionRangeSlider");
+			slider.update({
+				from: app.uiSalary,
+				to: app.uiSalary
+			})
 		}
 
 		jQuery(document).ready(function () {
 			var slider = jQuery(".salary-range").ionRangeSlider({
 				grid: true,
 				min: 24000,
-				max: 300000,
+				max: 320000,
 				from: 69400,
 				step: 100,
 				skin: "round",
@@ -674,7 +702,7 @@
 				prefix: '‎S$ ',
 				prettify_separator: ',',
 				prettify_enabled: true,
-				onChange: salaryUpdate
+				onChange: uiSalaryUpdate
 			});
 		});
 
