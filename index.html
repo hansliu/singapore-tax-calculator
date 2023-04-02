@@ -357,7 +357,14 @@
 			============================================= -->
 		<div id="wrapper">
 
-			<p class="intro">{{ $t('intro.content') }}</p>
+			<i18n path="intro.content" tag="p" class="intro">
+				<template #average_year>
+					<span>{{ $t('intro.average_year') }}</span>
+				</template>
+				<template #average_salary>
+					<b>{{ $t('intro.average_salary') }}</b>
+				</template>
+			</i18n>
 
 			<section id="content">
 
