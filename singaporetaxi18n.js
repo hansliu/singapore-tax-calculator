@@ -127,10 +127,10 @@ var app = new Vue({
         calculateCpfWithholdAmount: function() {
             var taxableIncome = this.taxableIncome;
             this.cpfWithholdAmount = 0;
-
+            
             if (this.isPermanentResident) {
-                if (taxableIncome > 72000) {
-                    this.cpfWithholdAmount = 72000 * 0.2;
+                if (taxableIncome > 81600) {
+                    this.cpfWithholdAmount = 81600 * 0.2;
                 }
                 else {
                     this.cpfWithholdAmount = taxableIncome * 0.2;
