@@ -82,7 +82,7 @@ var app = new Vue({
         uiSalary: 75400,
         salary: 0,
         isPermanentResident: false,
-        isNonResidents: false,
+        isNonResident: false,
 
         // CALCULATIONS
         cpfWithholdAmount: 0,
@@ -105,7 +105,7 @@ var app = new Vue({
         isPermanentResident: function() {
             this.calculateAll();
         },
-        isNonResidents: function() {
+        isNonResident: function() {
             this.calculateAll();
         },
         uiSalary: function(newSalary) {
@@ -159,10 +159,10 @@ var app = new Vue({
                 this.incomeTaxAmount = (taxableIncome - 1000000) * 0.24 + 199150;
             }
             else if (taxableIncome >= 500000) {
-                this.incomeTaxAmount = (taxableIncome - 500000) * 0.23 + 44550;
+                this.incomeTaxAmount = (taxableIncome - 500000) * 0.23 + 84150;
             }
             else if (taxableIncome >= 320000) {
-                this.incomeTaxAmount = (taxableIncome - 320000) * 0.20 + 44550;
+                this.incomeTaxAmount = (taxableIncome - 320000) * 0.22 + 44550;
             }
             else if (taxableIncome >= 280000) {
                 this.incomeTaxAmount = (taxableIncome - 280000) * 0.20 + 36550;
@@ -193,7 +193,7 @@ var app = new Vue({
             }
 
             // 15% of gross income or 22% of net income
-            if (this.isNonResidents) {
+            if (this.isNonResident) {
                 if (taxableIncome * 0.15 > this.incomeTaxAmount) {
                     this.incomeTaxAmount = taxableIncome * 0.15
                 }

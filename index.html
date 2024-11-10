@@ -6,7 +6,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta name="author" content="Hans Liu">
 	<meta name="keywords"
-		content="singapore, non residents, income, tax, calculation, calculator, 新加坡, 所得稅, 稅率, 計算">
+		content="singapore, non resident, income, tax, calculation, calculator, 新加坡, 所得稅, 稅率, 計算">
 	<meta name="description"
 		content="Using the Singapore Tax Calculator, you can get an idea of the amount of taxes you might have to pay.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -394,10 +394,10 @@
 						</div>
 
 						<p style="margin-top: 20px; margin-bottom: 0px;">
-							<input v-if="!isNonResidents" id="permanentResident" class="checkbox-style" v-model="isPermanentResident" type="checkbox">
-							<label v-if="!isNonResidents" for="permanentResident" class="checkbox-label" style="margin-right: 20px;">Permanent Resident</label>
-							<input v-if="!isPermanentResident" id="nonResidents" class="checkbox-style" v-model="isNonResidents" type="checkbox">
-							<label v-if="!isPermanentResident" for="nonResidents" class="checkbox-label" style="margin-right: 20px;">Non-Residents (Stay Less than 183 Days)</label>
+							<input v-if="!isNonResident" id="permanentResident" class="checkbox-style" v-model="isPermanentResident" type="checkbox">
+							<label v-if="!isNonResident" for="permanentResident" class="checkbox-label" style="margin-right: 20px;">Permanent Resident</label>
+							<input v-if="!isPermanentResident" id="nonResident" class="checkbox-style" v-model="isNonResident" type="checkbox">
+							<label v-if="!isPermanentResident" for="nonResident" class="checkbox-label" style="margin-right: 20px;">Non-Resident (Stay Less than 183 Days)</label>
 						</p>
 
 					</div>
@@ -609,8 +609,16 @@
 														<td>20%</td>
 													</tr>
 													<tr>
-														<td>320,001 +</td>
+														<td>320,001 - 500,000</td>
 														<td>22%</td>
+													</tr>
+													<tr>
+														<td>500,001 - 1,000,000</td>
+														<td>23%</td>
+													</tr>
+													<tr>
+														<td>1,000,001 +</td>
+														<td>24%</td>
 													</tr>
 												</tbody>
 											</table>
