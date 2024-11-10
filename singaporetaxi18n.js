@@ -17,7 +17,7 @@ const messages = {
         },
         "disclaimer": {
             "title": "Disclaimer",
-            "content": "All the information on the Singapore Tax Calculator (website) is published for general information purpose only. the website does not make any warranties about the completeness, reliability, and accuracy of this information. Any action you take upon the information you find on this website is strictly at your own risk. We will not be liable for any losses and/or damages in connection with the use of our website."
+            "content": "All the information on the Singapore Tax Calculator (website) is published for general information purpose only. The website does not make any warranties about the completeness, reliability, and accuracy of this information. Any action you take upon the information you find on this website is strictly at your own risk. We will not be liable for any losses and/or damages in connection with the use of our website."
         }
     },
     "zh-tw": {
