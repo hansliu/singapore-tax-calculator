@@ -129,8 +129,18 @@ var app = new Vue({
             this.cpfWithholdAmount = 0;
 
             if (this.isPermanentResident) {
-                if (taxableIncome > 72000) {
-                    this.cpfWithholdAmount = 72000 * 0.2;
+                var now = new Date();
+                var cpfCeiling = 6800 * 12;
+                var cpfCeilingFrom2025 = 7400 * 12;
+                var cpfCeilingFrom2026 = 8000 * 12;
+                if (now > Date('2026-01-01T00:00:00')) {
+                    cpfCeiling = cpfCeilingFrom2026;
+                } else if (now > Date('2025-01-01T00:00:00')){
+                    cpfCeiling = cpfCeilingFrom2025;
+                }
+
+                if (taxableIncome > cpfCeiling) {
+                    this.cpfWithholdAmount = cpfCeiling * 0.2;
                 }
                 else {
                     this.cpfWithholdAmount = taxableIncome * 0.2;
@@ -145,8 +155,14 @@ var app = new Vue({
             var taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
             this.incomeTaxAmount = 0;
 
-            if (taxableIncome >= 320000) {
-                this.incomeTaxAmount = (taxableIncome - 320000) * 0.22 + 44550;
+            if (taxableIncome >= 1000000) {
+                this.incomeTaxAmount = (taxableIncome - 1000000) * 0.24 + 199150;
+            }
+            else if (taxableIncome >= 500000) {
+                this.incomeTaxAmount = (taxableIncome - 500000) * 0.23 + 44550;
+            }
+            else if (taxableIncome >= 320000) {
+                this.incomeTaxAmount = (taxableIncome - 320000) * 0.20 + 44550;
             }
             else if (taxableIncome >= 280000) {
                 this.incomeTaxAmount = (taxableIncome - 280000) * 0.20 + 36550;
