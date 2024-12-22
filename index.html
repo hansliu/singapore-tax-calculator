@@ -383,8 +383,8 @@
 					<!-- <h3 class="divcenter font-body nobottommargin"></h3> -->
 
 					<p style="margin-top: 0px; margin-bottom: 10px;">
-						<label class="number-label" style="margin-right: 20px;"></label>
-						<input class="number-style" v-model="uiSalary" type="number" inputmode="numeric" onchange="rangeSalaryUpdate()" required>
+						<label for="uiSalary" class="number-label" style="margin-right: 20px;"></label>
+						<input id="uiSalary" class="number-style" v-model="uiSalary" type="number" inputmode="numeric" onchange="rangeSalaryUpdate()" required>
 					</p>
 
 					<div class="white-section">
@@ -663,18 +663,18 @@
 
 		</section>
 
-		<div id="comments">
-			<script src="https://utteranc.es/client.js"
-				repo="hansliu/singapore-tax-calculator"
-				issue-term="singaporetaxcalculator"
-				label="comment"
-				theme="github-light"
-				crossorigin="anonymous"
-				async>
-			</script>
-		</div>
-
 	</div><!-- #wrapper end -->
+
+	<div id="comments">
+		<script src="https://utteranc.es/client.js"
+			repo="hansliu/singapore-tax-calculator"
+			issue-term="singaporetaxcalculator"
+			label="comment"
+			theme="github-light"
+			crossorigin="anonymous"
+			async>
+		</script>
+	</div>
 
 	<!-- External JavaScripts
 		============================================= -->
