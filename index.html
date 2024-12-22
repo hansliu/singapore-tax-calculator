@@ -319,7 +319,7 @@
 			border-bottom: 1px solid #e8e8e8;
 		}
 
-		#disqus_thread {
+		.comments {
 			margin-top: 30px;
 			background: #e8e8e8;
 			border-top: 5px #1abc9c solid;
@@ -647,7 +647,7 @@
 				</i18n>
 				<i18n path="about.content" tag="p">
 					<template #author>
-						<a href="https://www.linkedin.com/in/liuhans/" target="_blank" rel="noreferrer noopener">Hans Liu</a>
+						<a href="https://github.com/hansliu/" target="_blank" rel="noreferrer noopener">Hans Liu</a>
 					</template>
 					<template #thanks_website>
 						<a href="https://japantaxcalculator.com/" target="_blank" rel="noreferrer noopener">Japan Tax Calculator</a>
@@ -663,19 +663,16 @@
 				<h3>{{ $t('disclaimer.title') }}</h3>
 				<p>{{ $t('disclaimer.content') }}</p>
 
-				<div id="disqus_thread"></div>
-				<script>
-					var disqus_config = function () {
-						this.page.url = "https://singaporetaxcalculator.com/";  // Replace PAGE_URL with your page's canonical URL variable
-						this.page.identifier = "singaporetax"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-					};
-					(function () { // DON'T EDIT BELOW THIS LINE
-						var d = document, s = d.createElement('script');
-						s.src = 'https://singaporetax.disqus.com/embed.js';
-						s.setAttribute('data-timestamp', +new Date());
-						(d.head || d.body).appendChild(s);
-					})();
-				</script>
+				<div class="comments">
+					<script src="https://utteranc.es/client.js"
+						repo="hansliu/singapore-tax-calculator"
+						issue-term="singaporetaxcalculator"
+						label="comment"
+						theme="github-light"
+						crossorigin="anonymous"
+						async>
+					</script>
+				</div>
 
 			</section>
 
@@ -685,7 +682,6 @@
 
 	<!-- External JavaScripts
 		============================================= -->
-	<script id="dsq-count-scr" src="https://singaporetax.disqus.com/count.js" async></script>
 	<script type="application/javascript" src="https://unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
 	<script type="application/javascript" src="https://unpkg.com/vue-i18n@8.21.0/dist/vue-i18n.min.js"></script>
 	<script type="application/javascript" src="singaporetaxi18n.js"></script>
