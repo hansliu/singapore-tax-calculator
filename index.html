@@ -319,7 +319,7 @@
 			border-bottom: 1px solid #e8e8e8;
 		}
 
-		.comments {
+		#comments {
 			margin-top: 30px;
 			background: #e8e8e8;
 			border-top: 5px #1abc9c solid;
@@ -349,333 +349,329 @@
 
 	<!-- Document Wrapper
 		============================================= -->
-	<div class="clearfix">
+	<div id="wrapper">
 
 		<h1>Singapore <span>Tax</span> Calculator</h1>
 
 		<!-- Content
 			============================================= -->
-		<div id="wrapper">
+		<section id="content">
 
-			<i18n path="intro.content" tag="p" class="intro">
-				<template #average_year>
-					<span>{{ $t('intro.average_year') }}</span>
+		<i18n path="intro.content" tag="p" class="intro">
+			<template #average_year>
+				<span>{{ $t('intro.average_year') }}</span>
+			</template>
+			<template #average_salary>
+				<b>{{ $t('intro.average_salary') }}</b>
+			</template>
+		</i18n>
+
+			<div id="section-salary" class="section">
+
+				<i18n path="salary.title" tag="h2">
+					<template #ayear>
+						<b>{{ $t('salary.ayear') }}</b>
+					</template>
+					<template #expenses>
+						<span style="font-size: 14px; font-style: italic; color: white; font-weight: normal;">
+							{{ $t('salary.expenses') }}
+						</span>
+					</template>
+				</i18n>
+
+				<div class="container clearfix divcenter center">
+					<!-- <h3 class="divcenter font-body nobottommargin"></h3> -->
+
+					<p style="margin-top: 0px; margin-bottom: 10px;">
+						<label class="number-label" style="margin-right: 20px;"></label>
+						<input class="number-style" v-model="uiSalary" type="number" inputmode="numeric" onchange="rangeSalaryUpdate()" required>
+					</p>
+
+					<div class="white-section">
+						<input class="salary-range" type="range"></input>
+					</div>
+
+					<p style="margin-top: 20px; margin-bottom: 0px;">
+						<input v-if="!isNonResident" id="permanentResident" class="checkbox-style" v-model="isPermanentResident" type="checkbox">
+						<label v-if="!isNonResident" for="permanentResident" class="checkbox-label" style="margin-right: 20px;">Singapore Citizen / Permanent Resident</label>
+						<input v-if="!isPermanentResident" id="nonResident" class="checkbox-style" v-model="isNonResident" type="checkbox">
+						<label v-if="!isPermanentResident" for="nonResident" class="checkbox-label" style="margin-right: 20px;">Non-Resident (Stay Less than 183 Days)</label>
+					</p>
+
+				</div>
+			</div>
+
+			<div id="section-net-income" class="section">
+				<div class="container clearfix divcenter center">
+
+					<h2 style="margin-bottom: 20px;">{{ $t('salary.net_income') }}<br />{{incomeNet | toSGD}}</h2>
+
+					<div class="progress">
+						<div class="progress-bar progress-bar-animated" role="progressbar"
+							v-bind:style="{ width: cpfWithholdPercent  * 2 + '%', 'background-color': '#0042bb;' }">
+							<span>
+								CPF Withhold: {{cpfWithholdAmount | toSGD}} ({{cpfWithholdPercent}}%)
+							</span>
+						</div>
+					</div>
+
+					<div class="progress">
+						<div class="progress-bar progress-bar-animated" role="progressbar"
+							v-bind:style="{ width: incomeTaxPercent  * 2 + '%', 'background-color': '#7752e8' }">
+							<span>
+								Income Tax: {{incomeTaxAmount | toSGD}} ({{incomeTaxPercent}}%)
+							</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div id="section-details">
+
+				<h2>Calculation <span>details</span></h2>
+
+				<div class="row" id="calculation-details-tabs">
+
+					<div class="col-3 col-md-2">
+
+						<ul class="nav flex-column nav-pills" id="pills-tab" role="tablist">
+							<li class="nav-item" role="tab" aria-controls="tab-cpf-withhold" aria-selected="false">
+								<a href="#tab-cpf-withhold" class="nav-link" data-toggle="tab">CPF Withhold</a></li>
+							<li class="nav-item" role="tab" aria-controls="tab-income-tax" aria-selected="false">
+								<a href="#tab-income-tax" class="nav-link" data-toggle="tab">Income Tax</a></li>
+							<li class="nav-item" role="tab" tabindex="0" aria-controls="tab-intro" aria-selected="true">
+								<a href="#tab-intro" class="nav-link active" data-toggle="tab">Net Income</a></li>
+						</ul>
+
+					</div>
+
+					<div class="col-9 col-md-10">
+
+						<div class="tab-content" id="detail-tabs">
+
+							<div class="tab-pane fade show active" id="tab-intro" role="tabpanel">
+
+								<table id="detail-tabs-results">
+									<tr>
+										<td>Salary</td>
+										<td>{{salary | toSGD}}</td>
+									</tr>
+									<tr>
+										<td>CPF Withhold</td>
+										<td>- {{cpfWithholdAmount | toSGD}}</td>
+									</tr>
+									<tr>
+										<td>Income Tax</td>
+										<td>- {{incomeTaxAmount | toSGD}}</td>
+									</tr>
+									<tr style="border-bottom: none; border-top: 2px solid gray;">
+										<td>Net Income</td>
+										<td>{{incomeNet | toSGD}}</td>
+									</tr>
+								</table>
+
+							</div>
+
+							<div class="tab-pane fade" id="tab-cpf-withhold" role="tabpanel">
+
+								<div class="row">
+
+									<div class="col-md-6">
+										<p>
+											If you are a salaried employee and are a Singapore Citizen (SC) or Singapore permanent resident (SPR), every month, when paying out your salary, your employer is required to withhold the portion of your pay that needs to go into your CPF accounts. That portion will be paid into your CPF accounts as your employee's contribution.
+										</p>
+										<div>
+											<h3 class="nobottommargin">What is <span>CPF</span></h3>
+										</div>
+										<p>
+											The Central Provident Fund (CPF) is set up to play one of the most important fuctions in Singapore's comprehensive social security system.
+										</p>
+										<p>
+											This is around 5% to 20% depending on Age and SPR status, and is capped on your monthly salary, currently capped at S$6,800. This means that the first S$6,800 of your monthly salary is subject to CPF contributions. Any amount above that won't have a portion deducted for CPF.
+										</p>
+										<p>
+											The CPF monthly salary cap will be raised from S$6,800 to S$8,000 by 2026, the increase will take place in below:
+										</p>
+										<ol style="list-style-type:lower-alpha">
+											<li>CPF monthly salary ceiling will be raised to S$7,400 from 1st January 2025.</li>
+											<li>CPF monthly salary ceiling will be raised to S$8,000 from 1st January 2026.</li>
+										</ol>
+										<p>
+											Because the Age is personal privacy, so we always use 20% as the CPF withhold rate.
+										</p>
+										<p style="font-size: 18px; font-weight: bold;">Your CPF withhold is <b style="color: red;">{{cpfWithholdAmount | toSGD}}</b>.</p>
+									</div>
+
+									<div class="col-md-6">
+										<table class="table">
+											<thead class="thead-dark">
+												<tr>
+													<th><strong>Age of employee</strong></th>
+													<th><strong>CPF withhold by employee</strong></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Up to 55 years old</td>
+													<td>20%</td>
+												</tr>
+												<tr>
+													<td>55 to 60 years old</td>
+													<td>13%</td>
+												</tr>
+												<tr>
+													<td>60 to 65 years old</td>
+													<td>7.5%</td>
+												</tr>
+												<tr>
+													<td>Above 65 years old</td>
+													<td>5%</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+								</div>
+
+							</div>
+
+							<div class="tab-pane fade" id="tab-income-tax" role="tabpanel">
+
+								<div class="row">
+
+									<div class="col-md-6">
+										<p>
+											Income tax rates depend on an individual's tax residency status. You will be treated as a tax resident for a particular Year of Assessment (YA) if you are a:
+										</p>
+										<ol style="list-style-type:lower-alpha">
+											<li>Singapore Citizen (SC) or Singapore Permanent Resident (SPR) who resides in Singapore except for temporary absences; or</li>
+											<li>Foreigner who has stayed / worked in Singapore (excludes director of a company) for 183 days or more in the year preceding the YA.</li>
+										</ol>
+										<p>
+											Otherwise, you will be treated as a non-resident of Singapore for tax purposes.
+										</p>
+										<p>
+											Singapore's personal income tax rates for resident taxpayers are progressive. This means higher income earners pay a proportionately higher tax, with the current highest personal income tax rate at 22%.
+										</p>
+										<p style="font-size: 18px; font-weight: bold;">Your final Income Tax is <b style="color: red;">{{incomeTaxAmount | toSGD}}</b>.</p>
+									</div>
+
+									<div class="col-md-6">
+										<table class="table">
+											<thead class="thead-dark">
+												<tr>
+													<th><strong>Annual Salary</strong></th>
+													<th><strong>Tax Rate</strong></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>0 - 20,000</td>
+													<td>0%</td>
+												</tr>
+												<tr>
+													<td>20,001 - 30,000</td>
+													<td>2%</td>
+												</tr>
+												<tr>
+													<td>30,001 - 40,000</td>
+													<td>3.5%</td>
+												</tr>
+												<tr>
+													<td>40,001 - 80,000</td>
+													<td>7%</td>
+												</tr>
+												<tr>
+													<td>80,001 - 120,000</td>
+													<td>11.5%</td>
+												</tr>
+												<tr>
+													<td>120,001 - 160,000</td>
+													<td>15%</td>
+												</tr>
+												<tr>
+													<td>160,001 - 200,000</td>
+													<td>18%</td>
+												</tr>
+												<tr>
+													<td>200,001 - 240,000</td>
+													<td>19%</td>
+												</tr>
+												<tr>
+													<td>240,001 - 280,000</td>
+													<td>19.5%</td>
+												</tr>
+												<tr>
+													<td>280,001 - 320,000</td>
+													<td>20%</td>
+												</tr>
+												<tr>
+													<td>320,001 - 500,000</td>
+													<td>22%</td>
+												</tr>
+												<tr>
+													<td>500,001 - 1,000,000</td>
+													<td>23%</td>
+												</tr>
+												<tr>
+													<td>1,000,001 +</td>
+													<td>24%</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</section>
+
+		<section id="footer" style="padding: 0px 20px 0px 20px;">
+
+			<i18n path="about.title" tag="h2">
+				<template #website>
+					<span>Singapore Tax Calculator</span>
 				</template>
-				<template #average_salary>
-					<b>{{ $t('intro.average_salary') }}</b>
+			</i18n>
+			<i18n path="about.content" tag="p">
+				<template #author>
+					<a href="https://github.com/hansliu/" target="_blank" rel="noreferrer noopener">Hans Liu</a>
+				</template>
+				<template #thanks_website>
+					<a href="https://japantaxcalculator.com/" target="_blank" rel="noreferrer noopener">Japan Tax Calculator</a>
+				</template>
+				<template #thanks_author>
+					<a href="https://jordymeow.com" target="_blank" rel="noreferrer noopener">Jordy Meow</a>
+				</template>
+				<template #github>
+					<a href="https://github.com/hansliu/singapore-tax-calculator" target="_blank" rel="noreferrer noopener">github</a>
 				</template>
 			</i18n>
 
-			<section id="content">
+			<h3>{{ $t('disclaimer.title') }}</h3>
+			<p>{{ $t('disclaimer.content') }}</p>
 
-				<div id="section-salary" class="section">
+		</section>
 
-					<i18n path="salary.title" tag="h2">
-						<template #ayear>
-							<b>{{ $t('salary.ayear') }}</b>
-						</template>
-						<template #expenses>
-							<span style="font-size: 14px; font-style: italic; color: white; font-weight: normal;">
-								{{ $t('salary.expenses') }}
-							</span>
-						</template>
-					</i18n>
-
-					<div class="container clearfix divcenter center">
-						<!-- <h3 class="divcenter font-body nobottommargin"></h3> -->
-
-						<p style="margin-top: 0px; margin-bottom: 10px;">
-							<label class="number-label" style="margin-right: 20px;"></label>
-							<input class="number-style" v-model="uiSalary" type="number" inputmode="numeric" onchange="rangeSalaryUpdate()" required>
-						</p>
-
-						<div class="white-section">
-							<input class="salary-range" type="range"></input>
-						</div>
-
-						<p style="margin-top: 20px; margin-bottom: 0px;">
-							<input v-if="!isNonResident" id="permanentResident" class="checkbox-style" v-model="isPermanentResident" type="checkbox">
-							<label v-if="!isNonResident" for="permanentResident" class="checkbox-label" style="margin-right: 20px;">Singapore Citizen / Permanent Resident</label>
-							<input v-if="!isPermanentResident" id="nonResident" class="checkbox-style" v-model="isNonResident" type="checkbox">
-							<label v-if="!isPermanentResident" for="nonResident" class="checkbox-label" style="margin-right: 20px;">Non-Resident (Stay Less than 183 Days)</label>
-						</p>
-
-					</div>
-				</div>
-
-				<div id="section-net-income" class="section">
-					<div class="container clearfix divcenter center">
-
-						<h2 style="margin-bottom: 20px;">{{ $t('salary.net_income') }}<br />{{incomeNet | toSGD}}</h2>
-
-						<div class="progress">
-							<div class="progress-bar progress-bar-animated" role="progressbar"
-								v-bind:style="{ width: cpfWithholdPercent  * 2 + '%', 'background-color': '#0042bb;' }">
-								<span>
-									CPF Withhold: {{cpfWithholdAmount | toSGD}} ({{cpfWithholdPercent}}%)
-								</span>
-							</div>
-						</div>
-
-						<div class="progress">
-							<div class="progress-bar progress-bar-animated" role="progressbar"
-								v-bind:style="{ width: incomeTaxPercent  * 2 + '%', 'background-color': '#7752e8' }">
-								<span>
-									Income Tax: {{incomeTaxAmount | toSGD}} ({{incomeTaxPercent}}%)
-								</span>
-							</div>
-						</div>
-
-					</div>
-				</div>
-
-				<div id="section-details">
-
-					<h2>Calculation <span>details</span></h2>
-
-					<div class="row" id="calculation-details-tabs">
-
-						<div class="col-3 col-md-2">
-
-							<ul class="nav flex-column nav-pills" id="pills-tab" role="tablist">
-								<li class="nav-item" role="tab" aria-controls="tab-cpf-withhold" aria-selected="false">
-									<a href="#tab-cpf-withhold" class="nav-link" data-toggle="tab">CPF Withhold</a></li>
-								<li class="nav-item" role="tab" aria-controls="tab-income-tax" aria-selected="false">
-									<a href="#tab-income-tax" class="nav-link" data-toggle="tab">Income Tax</a></li>
-								<li class="nav-item" role="tab" tabindex="0" aria-controls="tab-intro" aria-selected="true">
-									<a href="#tab-intro" class="nav-link active" data-toggle="tab">Net Income</a></li>
-							</ul>
-
-						</div>
-
-						<div class="col-9 col-md-10">
-
-							<div class="tab-content" id="detail-tabs">
-
-								<div class="tab-pane fade show active" id="tab-intro" role="tabpanel">
-
-									<table id="detail-tabs-results">
-										<tr>
-											<td>Salary</td>
-											<td>{{salary | toSGD}}</td>
-										</tr>
-										<tr>
-											<td>CPF Withhold</td>
-											<td>- {{cpfWithholdAmount | toSGD}}</td>
-										</tr>
-										<tr>
-											<td>Income Tax</td>
-											<td>- {{incomeTaxAmount | toSGD}}</td>
-										</tr>
-										<tr style="border-bottom: none; border-top: 2px solid gray;">
-											<td>Net Income</td>
-											<td>{{incomeNet | toSGD}}</td>
-										</tr>
-									</table>
-
-								</div>
-
-								<div class="tab-pane fade" id="tab-cpf-withhold" role="tabpanel">
-
-									<div class="row">
-
-										<div class="col-md-6">
-											<p>
-												If you are a salaried employee and are a Singapore Citizen (SC) or Singapore permanent resident (SPR), every month, when paying out your salary, your employer is required to withhold the portion of your pay that needs to go into your CPF accounts. That portion will be paid into your CPF accounts as your employee's contribution.
-											</p>
-											<div>
-												<h3 class="nobottommargin">What is <span>CPF</span></h3>
-											</div>
-											<p>
-												The Central Provident Fund (CPF) is set up to play one of the most important fuctions in Singapore's comprehensive social security system.
-											</p>
-											<p>
-												This is around 5% to 20% depending on Age and SPR status, and is capped on your monthly salary, currently capped at S$6,800. This means that the first S$6,800 of your monthly salary is subject to CPF contributions. Any amount above that won't have a portion deducted for CPF.
-											</p>
-											<p>
-												The CPF monthly salary cap will be raised from S$6,800 to S$8,000 by 2026, the increase will take place in below:
-											</p>
-											<ol style="list-style-type:lower-alpha">
-												<li>CPF monthly salary ceiling will be raised to S$7,400 from 1st January 2025.</li>
-												<li>CPF monthly salary ceiling will be raised to S$8,000 from 1st January 2026.</li>
-											</ol>
-											<p>
-												Because the Age is personal privacy, so we always use 20% as the CPF withhold rate.
-											</p>
-											<p style="font-size: 18px; font-weight: bold;">Your CPF withhold is <b style="color: red;">{{cpfWithholdAmount | toSGD}}</b>.</p>
-										</div>
-
-										<div class="col-md-6">
-											<table class="table">
-												<thead class="thead-dark">
-													<tr>
-														<th><strong>Age of employee</strong></th>
-														<th><strong>CPF withhold by employee</strong></th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>Up to 55 years old</td>
-														<td>20%</td>
-													</tr>
-													<tr>
-														<td>55 to 60 years old</td>
-														<td>13%</td>
-													</tr>
-													<tr>
-														<td>60 to 65 years old</td>
-														<td>7.5%</td>
-													</tr>
-													<tr>
-														<td>Above 65 years old</td>
-														<td>5%</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-
-									</div>
-
-								</div>
-
-								<div class="tab-pane fade" id="tab-income-tax" role="tabpanel">
-
-									<div class="row">
-
-										<div class="col-md-6">
-											<p>
-												Income tax rates depend on an individual's tax residency status. You will be treated as a tax resident for a particular Year of Assessment (YA) if you are a:
-											</p>
-											<ol style="list-style-type:lower-alpha">
-												<li>Singapore Citizen (SC) or Singapore Permanent Resident (SPR) who resides in Singapore except for temporary absences; or</li>
-												<li>Foreigner who has stayed / worked in Singapore (excludes director of a company) for 183 days or more in the year preceding the YA.</li>
-											</ol>
-											<p>
-												Otherwise, you will be treated as a non-resident of Singapore for tax purposes.
-											</p>
-											<p>
-												Singapore's personal income tax rates for resident taxpayers are progressive. This means higher income earners pay a proportionately higher tax, with the current highest personal income tax rate at 22%.
-											</p>
-											<p style="font-size: 18px; font-weight: bold;">Your final Income Tax is <b style="color: red;">{{incomeTaxAmount | toSGD}}</b>.</p>
-										</div>
-
-										<div class="col-md-6">
-											<table class="table">
-												<thead class="thead-dark">
-													<tr>
-														<th><strong>Annual Salary</strong></th>
-														<th><strong>Tax Rate</strong></th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>0 - 20,000</td>
-														<td>0%</td>
-													</tr>
-													<tr>
-														<td>20,001 - 30,000</td>
-														<td>2%</td>
-													</tr>
-													<tr>
-														<td>30,001 - 40,000</td>
-														<td>3.5%</td>
-													</tr>
-													<tr>
-														<td>40,001 - 80,000</td>
-														<td>7%</td>
-													</tr>
-													<tr>
-														<td>80,001 - 120,000</td>
-														<td>11.5%</td>
-													</tr>
-													<tr>
-														<td>120,001 - 160,000</td>
-														<td>15%</td>
-													</tr>
-													<tr>
-														<td>160,001 - 200,000</td>
-														<td>18%</td>
-													</tr>
-													<tr>
-														<td>200,001 - 240,000</td>
-														<td>19%</td>
-													</tr>
-													<tr>
-														<td>240,001 - 280,000</td>
-														<td>19.5%</td>
-													</tr>
-													<tr>
-														<td>280,001 - 320,000</td>
-														<td>20%</td>
-													</tr>
-													<tr>
-														<td>320,001 - 500,000</td>
-														<td>22%</td>
-													</tr>
-													<tr>
-														<td>500,001 - 1,000,000</td>
-														<td>23%</td>
-													</tr>
-													<tr>
-														<td>1,000,001 +</td>
-														<td>24%</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-
-									</div>
-
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</section>
-
-			<section id="footer" style="padding: 0px 20px 0px 20px;">
-
-				<i18n path="about.title" tag="h2">
-					<template #website>
-						<span>Singapore Tax Calculator</span>
-					</template>
-				</i18n>
-				<i18n path="about.content" tag="p">
-					<template #author>
-						<a href="https://github.com/hansliu/" target="_blank" rel="noreferrer noopener">Hans Liu</a>
-					</template>
-					<template #thanks_website>
-						<a href="https://japantaxcalculator.com/" target="_blank" rel="noreferrer noopener">Japan Tax Calculator</a>
-					</template>
-					<template #thanks_author>
-						<a href="https://jordymeow.com" target="_blank" rel="noreferrer noopener">Jordy Meow</a>
-					</template>
-					<template #github>
-						<a href="https://github.com/hansliu/singapore-tax-calculator" target="_blank" rel="noreferrer noopener">github</a>
-					</template>
-				</i18n>
-
-				<h3>{{ $t('disclaimer.title') }}</h3>
-				<p>{{ $t('disclaimer.content') }}</p>
-
-				<div class="comments">
-					<script src="https://utteranc.es/client.js"
-						repo="hansliu/singapore-tax-calculator"
-						issue-term="singaporetaxcalculator"
-						label="comment"
-						theme="github-light"
-						crossorigin="anonymous"
-						async>
-					</script>
-				</div>
-
-			</section>
-
+		<div id="comments">
+			<script src="https://utteranc.es/client.js"
+				repo="hansliu/singapore-tax-calculator"
+				issue-term="singaporetaxcalculator"
+				label="comment"
+				theme="github-light"
+				crossorigin="anonymous"
+				async>
+			</script>
 		</div>
 
 	</div><!-- #wrapper end -->
