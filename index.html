@@ -398,13 +398,33 @@
 						<label v-if="!isPermanentResident" for="nonResident" class="checkbox-label" style="margin-right: 20px;">Non-Resident (Stay Less than 183 Days)</label>
 					</p>
 
+					<p style="margin-top: 5px; margin-bottom: 0px;">
+						<input v-if="isPermanentResident" id="isCPFTopUp" class="checkbox-style" v-model="isCPFTopUp" type="checkbox">
+						<label v-if="isPermanentResident" for="isCPFTopUp" class="checkbox-label">CPF top-up</label>
+						<label v-if="isPermanentResident" for="cpfTopUp" class="number-label" style="margin-right: 20px;"></label>
+						<input v-if="isPermanentResident" id="cpfTopUp" class="number-style" v-model="cpfTopUp" type="number" inputmode="numeric" style="margin-right: 20px;" required>
+						<input v-if="!isNonResident" id="isSRSTopUp" class="checkbox-style" v-model="isSRSTopUp" type="checkbox">
+						<label v-if="!isNonResident" for="isSRSTopUp" class="checkbox-label">SRS top-up</label>
+						<label v-if="!isNonResident" for="srsTopUp" class="number-label" style="margin-right: 20px;"></label>
+						<input v-if="!isNonResident" id="srsTopUp" class="number-style" v-model="srsTopUp" type="number" inputmode="numeric" style="margin-right: 20px;" required>
+					</p>
+
 				</div>
 			</div>
 
 			<div id="section-net-income" class="section">
 				<div class="container clearfix divcenter center">
 
-					<h2 style="margin-bottom: 20px;">{{ $t('salary.net_income') }}<br />{{incomeNet | toSGD}}</h2>
+					<h2 style="margin-bottom: 20px;">{{ $t('salary.net_income') }}<br />{{netIncome | toSGD}}</h2>
+
+					<div class="progress">
+						<div class="progress-bar progress-bar-animated" role="progressbar"
+							v-bind:style="{ width: reliefTaxPercent  * 2 + '%', 'background-color': '#0042bb;' }">
+							<span>
+								SRS + CPF Top-Up Relief: {{reliefTaxAmount | toSGD}} ({{reliefTaxPercent}}%)
+							</span>
+						</div>
+					</div>
 
 					<div class="progress">
 						<div class="progress-bar progress-bar-animated" role="progressbar"
@@ -467,7 +487,7 @@
 									</tr>
 									<tr style="border-bottom: none; border-top: 2px solid gray;">
 										<td>Net Income</td>
-										<td>{{incomeNet | toSGD}}</td>
+										<td>{{netIncome | toSGD}}</td>
 									</tr>
 								</table>
 
@@ -709,7 +729,7 @@
 			var slider = jQuery(".salary-range").ionRangeSlider({
 				grid: true,
 				min: 24000,
-				max: 320000,
+				max: 350000,
 				from: 75400,
 				step: 100,
 				skin: "round",
