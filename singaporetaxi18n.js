@@ -71,7 +71,7 @@ const i18n = new VueI18n({
     messages: messages,
 })
 
-var app = new Vue({
+let app = new Vue({
     el: '#wrapper',
 
     i18n: i18n,
@@ -81,18 +81,24 @@ var app = new Vue({
         // USER ENTRIES
         uiSalary: 75400,
         salary: 0,
+        cpfTopUp: 8000,
+        srsTopUp: 15300,
         isPermanentResident: false,
         isNonResident: false,
+        isCPFTopUp: false,
+        isSRSTopUp: false,
 
         // CALCULATIONS
         cpfWithholdAmount: 0,
+        reliefTaxAmount: 0,
         incomeTaxAmount: 0,
-        incomeNet: 0,
+        netIncome: 0,
 
         // PERCENT OF SALARY
         cpfWithholdPercent: 0,
+        reliefTaxPercent: 0,
         incomeTaxPercent: 0,
-        incomeNetPercent: 0
+        netIncomePercent: 0
 
     },
 
@@ -108,7 +114,19 @@ var app = new Vue({
         isNonResident: function() {
             this.calculateAll();
         },
-        uiSalary: function(newSalary) {
+        isCPFTopUp: function() {
+            this.calculateAll();
+        },
+        cpfTopUp: function() {
+            this.calculateAll();
+        },
+        isSRSTopUp: function() {
+            this.calculateAll();
+        },
+        srsTopUp: function() {
+            this.calculateAll();
+        },
+        uiSalary: function() {
             this.calculateAll();
         }
 
@@ -120,19 +138,20 @@ var app = new Vue({
             this.salary = parseInt(this.uiSalary);
             this.taxableIncome = this.salary;
             this.calculateCpfWithholdAmount();
+            this.calculateReliefTaxAmount();
             this.calculateIncomeTaxAmount();
-            this.calculateIncomeNet();
+            this.calculateNetIncome();
         },
 
         calculateCpfWithholdAmount: function() {
-            var taxableIncome = this.taxableIncome;
+            let taxableIncome = this.taxableIncome;
             this.cpfWithholdAmount = 0;
 
             if (this.isPermanentResident) {
-                var now = new Date();
-                var cpfCeiling = 6800 * 12;
-                var cpfCeilingFrom2025 = 7400 * 12;
-                var cpfCeilingFrom2026 = 8000 * 12;
+                let now = new Date();
+                let cpfCeiling = 6800 * 12;
+                let cpfCeilingFrom2025 = 7400 * 12;
+                let cpfCeilingFrom2026 = 8000 * 12;
                 if (now > Date('2026-01-01T00:00:00')) {
                     cpfCeiling = cpfCeilingFrom2026;
                 } else if (now > Date('2025-01-01T00:00:00')){
@@ -151,8 +170,31 @@ var app = new Vue({
                 this.cpfWithholdAmount / this.salary * 100);
         },
 
+        calculateReliefTaxAmount: function() {
+            let cpfTopUpMax = this.isPermanentResident ? 8000 : 0;
+            let srsTopUpMax = this.isPermanentResident ? 15300 : 35700;
+            let cpfTopUpAmount = this.cpfTopUp > cpfTopUpMax ? cpfTopUpMax : this.cpfTopUp;
+            let srsTopUpAmount = this.srsTopUp > srsTopUpMax ? srsTopUpMax : this.srsTopUp;
+            let totalTopUpAmount = cpfTopUpAmount + srsTopUpAmount;
+            let taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
+            this.reliefTaxAmount = 0;
+
+            if ((this.isCPFTopUp && this.isSRSTopUp) && (taxableIncome >= totalTopUpAmount)) {
+                this.reliefTaxAmount = totalTopUpAmount;
+            }
+            else if (this.isSRSTopUp && taxableIncome >= srsTopUpAmount) {
+                this.reliefTaxAmount = srsTopUpAmount;
+            }
+            else if (this.isCPFTopUp && taxableIncome >= cpfTopUpAmount) {
+                this.reliefTaxAmount = cpfTopUpAmount;
+            }
+
+            this.reliefTaxPercent = Math.round(
+                this.reliefTaxAmount / this.salary * 100);
+        },
+
         calculateIncomeTaxAmount: function() {
-            var taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
+            let taxableIncome = this.taxableIncome - this.cpfWithholdAmount - this.reliefTaxAmount;
             this.incomeTaxAmount = 0;
 
             if (taxableIncome >= 1000000) {
@@ -202,10 +244,10 @@ var app = new Vue({
             this.incomeTaxPercent = Math.round(this.incomeTaxAmount / this.salary * 100);
         },
 
-        calculateIncomeNet: function() {
-            this.incomeNet = this.salary - this.cpfWithholdAmount - this.incomeTaxAmount;
-            this.incomeNetPercent = Math.round(this.incomeNet / this.salary * 100);
-            //console.debug("Income Net: ", this.incomeNet);
+        calculateNetIncome: function() {
+            this.netIncome = this.salary - this.cpfWithholdAmount - this.reliefTaxAmount;
+            this.netIncomePercent = Math.round(this.netIncome / this.salary * 100);
+            //console.debug("Net Income: ", this.netIncome);
         },
 
     },
@@ -215,7 +257,7 @@ var app = new Vue({
         toSGD: function(value) {
             if (!value)
                 return 'S$0';
-            var val = Math.round(value);
+            let val = Math.round(value);
             return "S$" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
