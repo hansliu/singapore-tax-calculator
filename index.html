@@ -384,7 +384,7 @@
 
 					<p style="margin-top: 0px; margin-bottom: 10px;">
 						<label for="uiSalary" class="number-label" style="margin-right: 20px;"></label>
-						<input id="uiSalary" class="number-style" v-model="uiSalary" type="number" inputmode="numeric" onchange="rangeSalaryUpdate()" required>
+						<input id="uiSalary" class="number-style" v-model.number="uiSalary" type="number" inputmode="numeric" onchange="rangeSalaryUpdate()" required>
 					</p>
 
 					<div class="white-section">
@@ -402,11 +402,11 @@
 						<input v-if="isPermanentResident" id="isCPFTopUp" class="checkbox-style" v-model="isCPFTopUp" type="checkbox">
 						<label v-if="isPermanentResident" for="isCPFTopUp" class="checkbox-label">CPF top-up</label>
 						<label v-if="isPermanentResident" for="cpfTopUp" class="number-label" style="margin-right: 20px;"></label>
-						<input v-if="isPermanentResident" id="cpfTopUp" class="number-style" v-model="cpfTopUp" type="number" inputmode="numeric" style="margin-right: 20px;" required>
+						<input v-if="isPermanentResident" id="cpfTopUp" class="number-style" v-model.number="cpfTopUp" type="number" inputmode="numeric" style="margin-right: 20px;" required>
 						<input v-if="!isNonResident" id="isSRSTopUp" class="checkbox-style" v-model="isSRSTopUp" type="checkbox">
 						<label v-if="!isNonResident" for="isSRSTopUp" class="checkbox-label">SRS top-up</label>
 						<label v-if="!isNonResident" for="srsTopUp" class="number-label" style="margin-right: 20px;"></label>
-						<input v-if="!isNonResident" id="srsTopUp" class="number-style" v-model="srsTopUp" type="number" inputmode="numeric" style="margin-right: 20px;" required>
+						<input v-if="!isNonResident" id="srsTopUp" class="number-style" v-model.number="srsTopUp" type="number" inputmode="numeric" style="margin-right: 20px;" required>
 					</p>
 
 				</div>
