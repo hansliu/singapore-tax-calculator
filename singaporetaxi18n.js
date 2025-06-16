@@ -245,7 +245,7 @@ let app = new Vue({
         },
 
         calculateNetIncome: function() {
-            this.netIncome = this.salary - this.cpfWithholdAmount - this.reliefTaxAmount;
+            this.netIncome = this.salary - this.cpfWithholdAmount - this.reliefTaxAmount - this.incomeTaxAmount;
             this.netIncomePercent = Math.round(this.netIncome / this.salary * 100);
             //console.debug("Net Income: ", this.netIncome);
         },
