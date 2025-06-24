@@ -152,9 +152,9 @@ let app = new Vue({
                 let cpfCeiling = 6800 * 12;
                 let cpfCeilingFrom2025 = 7400 * 12;
                 let cpfCeilingFrom2026 = 8000 * 12;
-                if (now > Date('2026-01-01T00:00:00')) {
+                if (now > (new Date('2026-01-01T00:00:00'))) {
                     cpfCeiling = cpfCeilingFrom2026;
-                } else if (now > Date('2025-01-01T00:00:00')){
+                } else if (now > (new Date('2025-01-01T00:00:00'))) {
                     cpfCeiling = cpfCeilingFrom2025;
                 }
 
