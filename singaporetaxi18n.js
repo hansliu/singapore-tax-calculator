@@ -13,7 +13,7 @@ const messages = {
         },
         "about": {
             "title": "About the {website}",
-            "content": "The Singapore Tax Calculatior is maintained by {author}. It was refer the {thanks_website} UI design and code base (that was maintained by {thanks_author} and Emi). If you find errors in those calculations, feel free to look into the code. It is being kept as simple as possible. If more changes need to be made, please feel free to create issue or pull request via {github}."
+            "content": "The Singapore Tax Calculator is maintained by {author}. It was refer the {thanks_website} UI design and code base (that was maintained by {thanks_author} and Emi). If you find errors in those calculations, feel free to look into the code. It is being kept as simple as possible. If more changes need to be made, please feel free to create issue or pull request via {github}."
         },
         "disclaimer": {
             "title": "Disclaimer",
