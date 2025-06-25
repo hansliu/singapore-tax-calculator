@@ -83,6 +83,9 @@ let app = new Vue({
         salary: 0,
         cpfTopUp: 8000,
         srsTopUp: 15300,
+        previousUiSalary: 75400,
+        previousCpfTopUp: 8000,
+        previousSrsTopUp: 15300,
         isPermanentResident: false,
         isNonResident: false,
         isCPFTopUp: false,
@@ -135,8 +138,11 @@ let app = new Vue({
     methods: {
 
         calculateAll: function() {
-            this.salary = Math.max(1, parseInt(Math.min(Number.MAX_SAFE_INTEGER, this.uiSalary)));
-            this.uiSalary = this.salary
+            if(this.uiSalary !== Math.max(1, parseInt(Math.min(Number.MAX_SAFE_INTEGER, this.uiSalary)))) {
+                this.uiSalary = Math.max(1, this.previousUiSalary);
+            }
+            this.previousUiSalary = this.uiSalary;
+            this.salary = this.uiSalary;
             this.taxableIncome = this.salary;
             this.calculateCpfWithholdAmount();
             this.calculateReliefTaxAmount();
@@ -172,14 +178,22 @@ let app = new Vue({
         },
 
         calculateReliefTaxAmount: function() {
-            let cpfTopUpMax = this.isPermanentResident ? 8000 : 0;
-            let srsTopUpMax = this.isPermanentResident ? 15300 : 35700;
-            let cpfTopUpAmount =  Math.max(0, this.cpfTopUp > cpfTopUpMax ? cpfTopUpMax :this.cpfTopUp);
-            let srsTopUpAmount =  Math.max(0, this.srsTopUp > srsTopUpMax ? srsTopUpMax :  this.srsTopUp);
-            this.cpfTopUp = this.isPermanentResident ? cpfTopUpAmount : this.cpfTopUp;
-            this.srsTopUp = srsTopUpAmount;
-            let totalTopUpAmount = cpfTopUpAmount + srsTopUpAmount;
-            let taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
+            const cpfTopUpMax = this.isPermanentResident ? 8000 : 0;
+            if(this.cpfTopUp !== Math.max(0, this.cpfTopUp > cpfTopUpMax ? cpfTopUpMax :this.cpfTopUp)) {
+                this.cpfTopUp = Math.max(0, this.previousCpfTopUp > cpfTopUpMax ? cpfTopUpMax :this.previousCpfTopUp);
+            }
+            this.previousCpfTopUp = this.cpfTopUp;
+
+            const srsTopUpMax = this.isPermanentResident ? 15300 : 35700;
+            if(this.srsTopUp !== Math.max(0, this.srsTopUp > srsTopUpMax ? srsTopUpMax :  this.srsTopUp)) {
+                this.srsTopUp = Math.max(0, this.previousSrsTopUp > srsTopUpMax ? srsTopUpMax :this.previousSrsTopUp);
+            }
+            this.previousSrsTopUp = this.srsTopUp;
+
+            const cpfTopUpAmount =  this.cpfTopUp;
+            const srsTopUpAmount =  this.srsTopUp;
+            const totalTopUpAmount = cpfTopUpAmount + srsTopUpAmount;
+            const taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
             this.reliefTaxAmount = 0;
 
             if ((this.isCPFTopUp && this.isSRSTopUp) && (taxableIncome >= totalTopUpAmount)) {
