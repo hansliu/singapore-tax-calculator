@@ -196,7 +196,10 @@ let app = new Vue({
             const taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
             this.reliefTaxAmount = 0;
 
-            if ((this.isCPFTopUp && this.isSRSTopUp) && (taxableIncome >= totalTopUpAmount)) {
+            if (this.isNonResident) {
+                //
+            }
+            else if ((this.isCPFTopUp && this.isSRSTopUp) && (taxableIncome >= totalTopUpAmount)) {
                 this.reliefTaxAmount = totalTopUpAmount;
             }
             else if (this.isSRSTopUp && taxableIncome >= srsTopUpAmount) {
