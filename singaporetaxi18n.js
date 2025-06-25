@@ -135,7 +135,8 @@ let app = new Vue({
     methods: {
 
         calculateAll: function() {
-            this.salary = parseInt(this.uiSalary);
+            this.salary = Math.max(1, parseInt(Math.min(Number.MAX_SAFE_INTEGER, this.uiSalary)));
+            this.uiSalary = this.salary
             this.taxableIncome = this.salary;
             this.calculateCpfWithholdAmount();
             this.calculateReliefTaxAmount();
@@ -173,8 +174,10 @@ let app = new Vue({
         calculateReliefTaxAmount: function() {
             let cpfTopUpMax = this.isPermanentResident ? 8000 : 0;
             let srsTopUpMax = this.isPermanentResident ? 15300 : 35700;
-            let cpfTopUpAmount = this.cpfTopUp > cpfTopUpMax ? cpfTopUpMax : this.cpfTopUp;
-            let srsTopUpAmount = this.srsTopUp > srsTopUpMax ? srsTopUpMax : this.srsTopUp;
+            let cpfTopUpAmount =  Math.max(0, this.cpfTopUp > cpfTopUpMax ? cpfTopUpMax :this.cpfTopUp);
+            let srsTopUpAmount =  Math.max(0, this.srsTopUp > srsTopUpMax ? srsTopUpMax :  this.srsTopUp);
+            this.cpfTopUp = this.isPermanentResident ? cpfTopUpAmount : this.cpfTopUp;
+            this.srsTopUp = srsTopUpAmount;
             let totalTopUpAmount = cpfTopUpAmount + srsTopUpAmount;
             let taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
             this.reliefTaxAmount = 0;
