@@ -179,13 +179,13 @@ let app = new Vue({
 
         calculateReliefTaxAmount: function() {
             const cpfTopUpMax = this.isPermanentResident ? 8000 : 0;
-            if (this.cpfTopUp !== Math.max(0, this.cpfTopUp > cpfTopUpMax ? cpfTopUpMax :this.cpfTopUp)) {
+            if (this.isPermanentResident && this.cpfTopUp !== Math.max(0, this.cpfTopUp > cpfTopUpMax ? cpfTopUpMax :this.cpfTopUp)) {
                 this.cpfTopUp = Math.max(0, this.previousCpfTopUp > cpfTopUpMax ? cpfTopUpMax :this.previousCpfTopUp);
             }
             this.previousCpfTopUp = this.cpfTopUp;
 
             const srsTopUpMax = this.isPermanentResident ? 15300 : 35700;
-            if (this.srsTopUp !== Math.max(0, this.srsTopUp > srsTopUpMax ? srsTopUpMax :  this.srsTopUp)) {
+            if (!this.isNonResident && this.srsTopUp !== Math.max(0, this.srsTopUp > srsTopUpMax ? srsTopUpMax :  this.srsTopUp)) {
                 this.srsTopUp = Math.max(0, this.previousSrsTopUp > srsTopUpMax ? srsTopUpMax :this.previousSrsTopUp);
             }
             this.previousSrsTopUp = this.srsTopUp;
