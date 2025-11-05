@@ -83,6 +83,9 @@ let app = new Vue({
         salary: 0,
         cpfTopUp: 8000,
         srsTopUp: 15300,
+        previousUiSalary: 75400,
+        previousCpfTopUp: 8000,
+        previousSrsTopUp: 15300,
         isPermanentResident: false,
         isNonResident: false,
         isCPFTopUp: false,
@@ -135,7 +138,11 @@ let app = new Vue({
     methods: {
 
         calculateAll: function() {
-            this.salary = parseInt(this.uiSalary);
+            if (this.uiSalary !== Math.max(1, parseInt(Math.min(Number.MAX_SAFE_INTEGER, this.uiSalary)))) {
+                this.uiSalary = Math.max(1, this.previousUiSalary);
+            }
+            this.previousUiSalary = this.uiSalary;
+            this.salary = this.uiSalary;
             this.taxableIncome = this.salary;
             this.calculateCpfWithholdAmount();
             this.calculateReliefTaxAmount();
@@ -171,15 +178,28 @@ let app = new Vue({
         },
 
         calculateReliefTaxAmount: function() {
-            let cpfTopUpMax = this.isPermanentResident ? 8000 : 0;
-            let srsTopUpMax = this.isPermanentResident ? 15300 : 35700;
-            let cpfTopUpAmount = this.cpfTopUp > cpfTopUpMax ? cpfTopUpMax : this.cpfTopUp;
-            let srsTopUpAmount = this.srsTopUp > srsTopUpMax ? srsTopUpMax : this.srsTopUp;
-            let totalTopUpAmount = cpfTopUpAmount + srsTopUpAmount;
-            let taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
+            const cpfTopUpMax = this.isPermanentResident ? 8000 : 0;
+            if (this.isPermanentResident && this.cpfTopUp !== Math.max(0, Math.min(this.cpfTopUp, cpfTopUpMax))) {
+                this.cpfTopUp = Math.max(0, Math.min(this.previousCpfTopUp, cpfTopUpMax));
+            }
+            this.previousCpfTopUp = this.cpfTopUp;
+
+            const srsTopUpMax = this.isPermanentResident ? 15300 : 35700;
+            if (!this.isNonResident && this.srsTopUp !== Math.max(0, Math.min(this.srsTopUp, srsTopUpMax))) {
+                this.srsTopUp = Math.max(0, Math.min(this.previousSrsTopUp, srsTopUpMax));
+            }
+            this.previousSrsTopUp = this.srsTopUp;
+
+            const cpfTopUpAmount =  this.cpfTopUp;
+            const srsTopUpAmount =  this.srsTopUp;
+            const totalTopUpAmount = cpfTopUpAmount + srsTopUpAmount;
+            const taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
             this.reliefTaxAmount = 0;
 
-            if ((this.isCPFTopUp && this.isSRSTopUp) && (taxableIncome >= totalTopUpAmount)) {
+            if (this.isNonResident) {
+                //
+            }
+            else if ((this.isCPFTopUp && this.isSRSTopUp) && (taxableIncome >= totalTopUpAmount)) {
                 this.reliefTaxAmount = totalTopUpAmount;
             }
             else if (this.isSRSTopUp && taxableIncome >= srsTopUpAmount) {
