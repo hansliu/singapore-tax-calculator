@@ -421,7 +421,7 @@
 						<div class="progress-bar progress-bar-animated" role="progressbar"
 							v-bind:style="{ width: reliefTaxPercent  * 2 + '%', 'background-color': '#007bff' }">
 							<span>
-								SRS + CPF Top-Up Relief: {{reliefTaxAmount | toSGD}} ({{reliefTaxPercent}}%)
+								CPF + SRS Top-Up Relief: {{reliefTaxAmount | toSGD}} ({{reliefTaxPercent}}%)
 							</span>
 						</div>
 					</div>
@@ -458,6 +458,8 @@
 						<ul class="nav flex-column nav-pills" id="pills-tab" role="tablist">
 							<li class="nav-item" role="tab" aria-controls="tab-cpf-withhold" aria-selected="false">
 								<a href="#tab-cpf-withhold" class="nav-link" data-toggle="tab">CPF Withhold</a></li>
+							<li class="nav-item" role="tab" aria-controls="tab-earned-income-relief" aria-selected="false">
+								<a href="#tab-earned-income-relief" class="nav-link" data-toggle="tab">Earned Income Relief</a></li>
 							<li class="nav-item" role="tab" aria-controls="tab-income-tax" aria-selected="false">
 								<a href="#tab-income-tax" class="nav-link" data-toggle="tab">Income Tax</a></li>
 							<li class="nav-item" role="tab" tabindex="0" aria-controls="tab-intro" aria-selected="true">
@@ -482,8 +484,12 @@
 										<td>- {{cpfWithholdAmount | toSGD}}</td>
 									</tr>
 									<tr>
-										<td>SRS + CPF Top-up Relief</td>
+										<td>CPF + SRS Top-up Relief</td>
 										<td>- {{reliefTaxAmount | toSGD}}</td>
+									</tr>
+									<tr>
+										<td>Earned Income Relief</td>
+										<td>- {{earnedIncomeReliefAmount | toSGD}}</td>
 									</tr>
 									<tr>
 										<td>Income Tax</td>
@@ -554,6 +560,65 @@
 												</tr>
 											</tbody>
 										</table>
+									</div>
+
+								</div>
+
+							</div>
+
+							<div class="tab-pane fade" id="tab-earned-income-relief" role="tabpanel">
+
+								<div class="row">
+
+									<div class="col-md-6">
+										<p>
+											Earned Income Relief is granted to individuals who are gainfully employed or carrying on a trade, business, profession, or vocation. This relief is designed to support working individuals, especially as they age.
+										</p>
+										<div>
+											<h3 class="nobottommargin">What is <span>Earned Income Relief</span></h3>
+										</div>
+										<p>
+											The amount of Earned Income Relief you can claim depends on your age as of 31 December of the previous year, as well as your taxable earned income (after deducting allowable expenses).
+										</p>
+										<p>
+											If your taxable earned income is lower than the maximum relief amount for your age group, the relief will be capped at your actual earned income.
+										</p>
+										<p>
+											For example, if you are 55 years old and earned $5,000 in the previous year, your relief will be $5,000 instead of $6,000.
+										</p>
+										<p>
+											Because the Age is personal privacy, so we always use $1,000 as the earned income relief.
+										</p>
+										<p style="font-size: 18px; font-weight: bold;">Your Earned Income Relief is <b style="color: red;">{{earnedIncomeReliefAmount | toSGD}}</b>.
+										</p>
+									</div>
+
+									<div class="col-md-6">
+										<table class="table">
+											<thead class="thead-dark">
+												<tr>
+													<th><strong>Age (as of 31 Dec)</strong></th>
+													<th><strong>Maximum Relief (SGD)</strong></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Below 55</td>
+													<td>$1,000</td>
+												</tr>
+												<tr>
+													<td>55 to 59</td>
+													<td>$6,000</td>
+												</tr>
+												<tr>
+													<td>60 and above</td>
+													<td>$8,000</td>
+												</tr>
+											</tbody>
+										</table>
+										<p style="font-size: 14px;">
+											# Relief is capped at the amount of taxable earned income if it is lower than the maximum claimable amount.
+										</p>
 									</div>
 
 								</div>
@@ -733,7 +798,7 @@
 			var slider = jQuery(".salary-range").ionRangeSlider({
 				grid: true,
 				min: 24000,
-				max: 350000,
+				max: 400000,
 				from: 75400,
 				step: 100,
 				skin: "round",

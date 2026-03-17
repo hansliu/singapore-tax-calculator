@@ -93,6 +93,7 @@ let app = new Vue({
 
         // CALCULATIONS
         cpfWithholdAmount: 0,
+        earnedIncomeReliefAmount: 1000,
         reliefTaxAmount: 0,
         incomeTaxAmount: 0,
         netIncome: 0,
@@ -178,22 +179,22 @@ let app = new Vue({
         },
 
         calculateReliefTaxAmount: function() {
-            const cpfTopUpMax = this.isPermanentResident ? 8000 : 0;
+            let cpfTopUpMax = this.isPermanentResident ? 8000 : 0;
             if (this.isPermanentResident && this.cpfTopUp !== Math.max(0, Math.min(this.cpfTopUp, cpfTopUpMax))) {
                 this.cpfTopUp = Math.max(0, Math.min(this.previousCpfTopUp, cpfTopUpMax));
             }
             this.previousCpfTopUp = this.cpfTopUp;
 
-            const srsTopUpMax = this.isPermanentResident ? 15300 : 35700;
+            let srsTopUpMax = this.isPermanentResident ? 15300 : 35700;
             if (!this.isNonResident && this.srsTopUp !== Math.max(0, Math.min(this.srsTopUp, srsTopUpMax))) {
                 this.srsTopUp = Math.max(0, Math.min(this.previousSrsTopUp, srsTopUpMax));
             }
             this.previousSrsTopUp = this.srsTopUp;
 
-            const cpfTopUpAmount =  this.cpfTopUp;
-            const srsTopUpAmount =  this.srsTopUp;
-            const totalTopUpAmount = cpfTopUpAmount + srsTopUpAmount;
-            const taxableIncome = this.taxableIncome - this.cpfWithholdAmount;
+            let cpfTopUpAmount =  this.cpfTopUp;
+            let srsTopUpAmount =  this.srsTopUp;
+            let totalTopUpAmount = cpfTopUpAmount + srsTopUpAmount;
+            let taxableIncome = this.taxableIncome - this.cpfWithholdAmount - this.earnedIncomeReliefAmount;
             this.reliefTaxAmount = 0;
 
             if (this.isNonResident) {
@@ -214,7 +215,7 @@ let app = new Vue({
         },
 
         calculateIncomeTaxAmount: function() {
-            let taxableIncome = this.taxableIncome - this.cpfWithholdAmount - this.reliefTaxAmount;
+            let taxableIncome = this.taxableIncome - this.cpfWithholdAmount - this.reliefTaxAmount - this.earnedIncomeReliefAmount;
             this.incomeTaxAmount = 0;
 
             if (taxableIncome >= 1000000) {
