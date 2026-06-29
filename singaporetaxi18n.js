@@ -1,23 +1,23 @@
 const messages = {
     "en": {
         "intro": {
-            "content": "Welcome to the Singapore Tax Calculator. This website has been made for you to quickly get an idea of the amount of taxes you might have to pay especially for the work visa holders. Refer to Singapore IRAS to know exactly how taxation works for you. Please feel free to leave the comments below at the bottom of this page. As of {average_year}, the average salary a year in Singapore is {average_salary}.",
+            "content": "Welcome to the Singapore Tax Calculator. This website helps you quickly estimate how much income tax you may have to pay, especially if you are a work visa holder. Please refer to the IRAS website for information on how your taxes are calculated. Please feel free to leave a comment at the bottom of this page. As of {average_year}, the average annual salary in Singapore is {average_salary}.",
             "average_year": "2022",
             "average_salary": "S$75,384"
         },
         "salary": {
-            "title": "How much do you make {ayear}? {expenses}",
+            "title": "How much do you earn per {ayear}? {expenses}",
             "ayear": "a year",
             "expenses": "(after expenses, if any)",
             "net_income": "Your net income is:"
         },
         "about": {
             "title": "About the {website}",
-            "content": "The Singapore Tax Calculator is maintained by {author}. It was refer the {thanks_website} UI design and code base (that was maintained by {thanks_author} and Emi). If you find errors in those calculations, feel free to look into the code. It is being kept as simple as possible. If more changes need to be made, please feel free to create issue or pull request via {github}."
+            "content": "The Singapore Tax Calculator is maintained by {author}. It is based on the UI design and codebase of {thanks_website} (which was maintained by {thanks_author} and Emi). If you find any errors in the calculations, feel free to look into the code. The project is being kept as simple as possible. If you have suggestions or find any issues, please feel free to create an issue or submit a pull request on {github}."
         },
         "disclaimer": {
             "title": "Disclaimer",
-            "content": "All the information on the Singapore Tax Calculator (website) is published for general information purpose only. The website does not make any warranties about the completeness, reliability, and accuracy of this information. Any action you take upon the information you find on this website is strictly at your own risk. We will not be liable for any losses and/or damages in connection with the use of our website."
+            "content": "All the information on the Singapore Tax Calculator (website) is published for general information purpose only. The website makes no warranties about the completeness, reliability, and accuracy of this information. Any action you take based on the information on this website is strictly at your own risk. We will not be liable for any losses and/or damages in connection with the use of our website."
         }
     },
     "zh-tw": {
